@@ -1,0 +1,5 @@
+Repository does not contain binaries including external dll packages from NuGet which are essential. You have to enable project to auto download missing dependencies.
+
+Useful resource: http://docs.nuget.org/docs/workflows/using-nuget-without-committing-packages
+
+kampro
