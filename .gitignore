@@ -1,0 +1,19 @@
+!.gitignore
+
+# User-specific files
+*.suo
+*.user
+
+# NuGet packages (you will have to allow VS to auto add missing NuGet packages)
+packages/
+
+# Build objects
+[Bb]in/
+[Oo]bj/
+[Cc]sx/
+
+# Backup
+*.backup.*
+
+# Windows Azure Publish Settings
+.publishsettings
