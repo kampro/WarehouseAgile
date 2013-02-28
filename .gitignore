@@ -17,3 +17,5 @@ packages/
 
 # Windows Azure Publish Settings
 .publishsettings
+
+.nuget/
