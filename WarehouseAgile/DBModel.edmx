@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AppDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="AppDBModelStoreContainer">
+          <EntitySet Name="Branches" EntityType="AppDBModel.Store.Branches" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Colors" EntityType="AppDBModel.Store.Colors" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EquipmentPrices" EntityType="AppDBModel.Store.EquipmentPrices" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Equipments" EntityType="AppDBModel.Store.Equipments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Makes" EntityType="AppDBModel.Store.Makes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Models" EntityType="AppDBModel.Store.Models" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orders" EntityType="AppDBModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sellers" EntityType="AppDBModel.Store.Sellers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="States" EntityType="AppDBModel.Store.States" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Branch" Association="AppDBModel.Store.FK_Branch">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Sellers" EntitySet="Sellers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car" Association="AppDBModel.Store.FK_Car">
+            <End Role="EquipmentPrices" EntitySet="EquipmentPrices" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Color" Association="AppDBModel.Store.FK_Color">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment" Association="AppDBModel.Store.FK_Equipment">
+            <End Role="Equipments" EntitySet="Equipments" />
+            <End Role="EquipmentPrices" EntitySet="EquipmentPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Make" Association="AppDBModel.Store.FK_Make">
+            <End Role="Makes" EntitySet="Makes" />
+            <End Role="Models" EntitySet="Models" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Model" Association="AppDBModel.Store.FK_Model">
+            <End Role="Models" EntitySet="Models" />
+            <End Role="EquipmentPrices" EntitySet="EquipmentPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State" Association="AppDBModel.Store.FK_State">
+            <End Role="States" EntitySet="States" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+          <Property Name="location_x" Type="int" />
+          <Property Name="location_y" Type="int" />
+        </EntityType>
+        <EntityType Name="Colors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="price" Type="real" />
+        </EntityType>
+        <EntityType Name="EquipmentPrices">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_model" Type="int" Nullable="false" />
+          <Property Name="id_equipment" Type="int" Nullable="false" />
+          <Property Name="price" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Equipments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Makes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Models">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_make" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="price" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_seller" Type="int" Nullable="false" />
+          <Property Name="id_car" Type="int" Nullable="false" />
+          <Property Name="id_color" Type="int" Nullable="false" />
+          <Property Name="id_state" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="realization" Type="date" />
+        </EntityType>
+        <EntityType Name="Sellers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_user" Type="uniqueidentifier" />
+          <Property Name="id_branch" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="surname" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Branch">
+          <End Role="Branches" Type="AppDBModel.Store.Branches" Multiplicity="0..1" />
+          <End Role="Sellers" Type="AppDBModel.Store.Sellers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sellers">
+              <PropertyRef Name="id_branch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car">
+          <End Role="EquipmentPrices" Type="AppDBModel.Store.EquipmentPrices" Multiplicity="1" />
+          <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentPrices">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="id_car" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Color">
+          <End Role="Colors" Type="AppDBModel.Store.Colors" Multiplicity="1" />
+          <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="id_color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment">
+          <End Role="Equipments" Type="AppDBModel.Store.Equipments" Multiplicity="1" />
+          <End Role="EquipmentPrices" Type="AppDBModel.Store.EquipmentPrices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EquipmentPrices">
+              <PropertyRef Name="id_equipment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Make">
+          <End Role="Makes" Type="AppDBModel.Store.Makes" Multiplicity="1" />
+          <End Role="Models" Type="AppDBModel.Store.Models" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Makes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Models">
+              <PropertyRef Name="id_make" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Model">
+          <End Role="Models" Type="AppDBModel.Store.Models" Multiplicity="1" />
+          <End Role="EquipmentPrices" Type="AppDBModel.Store.EquipmentPrices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Models">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EquipmentPrices">
+              <PropertyRef Name="id_model" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State">
+          <End Role="States" Type="AppDBModel.Store.States" Multiplicity="1" />
+          <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="id_state" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AppDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Branches" EntityType="AppDBModel.Branch" />
+          <EntitySet Name="Colors" EntityType="AppDBModel.Color" />
+          <EntitySet Name="EquipmentPrices" EntityType="AppDBModel.EquipmentPrice" />
+          <EntitySet Name="Equipments" EntityType="AppDBModel.Equipment" />
+          <EntitySet Name="Makes" EntityType="AppDBModel.Make" />
+          <EntitySet Name="Models" EntityType="AppDBModel.Model" />
+          <EntitySet Name="Orders" EntityType="AppDBModel.Order" />
+          <EntitySet Name="Sellers" EntityType="AppDBModel.Seller" />
+          <EntitySet Name="States" EntityType="AppDBModel.State" />
+          <AssociationSet Name="FK_Branch" Association="AppDBModel.FK_Branch">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Sellers" EntitySet="Sellers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Color" Association="AppDBModel.FK_Color">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car" Association="AppDBModel.FK_Car">
+            <End Role="EquipmentPrices" EntitySet="EquipmentPrices" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment" Association="AppDBModel.FK_Equipment">
+            <End Role="Equipments" EntitySet="Equipments" />
+            <End Role="EquipmentPrices" EntitySet="EquipmentPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Model" Association="AppDBModel.FK_Model">
+            <End Role="Models" EntitySet="Models" />
+            <End Role="EquipmentPrices" EntitySet="EquipmentPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Make" Association="AppDBModel.FK_Make">
+            <End Role="Makes" EntitySet="Makes" />
+            <End Role="Models" EntitySet="Models" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State" Association="AppDBModel.FK_State">
+            <End Role="States" EntitySet="States" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="address" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="location_x" Type="Int32" />
+          <Property Name="location_y" Type="Int32" />
+          <NavigationProperty Name="Sellers" Relationship="AppDBModel.FK_Branch" FromRole="Branches" ToRole="Sellers" />
+        </EntityType>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="price" Type="Single" />
+          <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_Color" FromRole="Colors" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="EquipmentPrice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_model" Type="Int32" Nullable="false" />
+          <Property Name="id_equipment" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_Car" FromRole="EquipmentPrices" ToRole="Orders" />
+          <NavigationProperty Name="Equipment" Relationship="AppDBModel.FK_Equipment" FromRole="EquipmentPrices" ToRole="Equipments" />
+          <NavigationProperty Name="Model" Relationship="AppDBModel.FK_Model" FromRole="EquipmentPrices" ToRole="Models" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="EquipmentPrices" Relationship="AppDBModel.FK_Equipment" FromRole="Equipments" ToRole="EquipmentPrices" />
+        </EntityType>
+        <EntityType Name="Make">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Models" Relationship="AppDBModel.FK_Make" FromRole="Makes" ToRole="Models" />
+        </EntityType>
+        <EntityType Name="Model">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_make" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="price" Type="Single" Nullable="false" />
+          <NavigationProperty Name="EquipmentPrices" Relationship="AppDBModel.FK_Model" FromRole="Models" ToRole="EquipmentPrices" />
+          <NavigationProperty Name="Make" Relationship="AppDBModel.FK_Make" FromRole="Models" ToRole="Makes" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_seller" Type="Int32" Nullable="false" />
+          <Property Name="id_car" Type="Int32" Nullable="false" />
+          <Property Name="id_color" Type="Int32" Nullable="false" />
+          <Property Name="id_state" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="realization" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Color" Relationship="AppDBModel.FK_Color" FromRole="Orders" ToRole="Colors" />
+          <NavigationProperty Name="EquipmentPrice" Relationship="AppDBModel.FK_Car" FromRole="Orders" ToRole="EquipmentPrices" />
+          <NavigationProperty Name="State" Relationship="AppDBModel.FK_State" FromRole="Orders" ToRole="States" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_user" Type="Guid" />
+          <Property Name="id_branch" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="surname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Branch" Relationship="AppDBModel.FK_Branch" FromRole="Sellers" ToRole="Branches" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_State" FromRole="States" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK_Branch">
+          <End Role="Branches" Type="AppDBModel.Branch" Multiplicity="0..1" />
+          <End Role="Sellers" Type="AppDBModel.Seller" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sellers">
+              <PropertyRef Name="id_branch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Color">
+          <End Role="Colors" Type="AppDBModel.Color" Multiplicity="1" />
+          <End Role="Orders" Type="AppDBModel.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="id_color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car">
+          <End Role="EquipmentPrices" Type="AppDBModel.EquipmentPrice" Multiplicity="1" />
+          <End Role="Orders" Type="AppDBModel.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentPrices">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="id_car" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment">
+          <End Role="Equipments" Type="AppDBModel.Equipment" Multiplicity="1" />
+          <End Role="EquipmentPrices" Type="AppDBModel.EquipmentPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EquipmentPrices">
+              <PropertyRef Name="id_equipment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Model">
+          <End Role="Models" Type="AppDBModel.Model" Multiplicity="1" />
+          <End Role="EquipmentPrices" Type="AppDBModel.EquipmentPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Models">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EquipmentPrices">
+              <PropertyRef Name="id_model" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Make">
+          <End Role="Makes" Type="AppDBModel.Make" Multiplicity="1" />
+          <End Role="Models" Type="AppDBModel.Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Makes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Models">
+              <PropertyRef Name="id_make" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State">
+          <End Role="States" Type="AppDBModel.State" Multiplicity="1" />
+          <End Role="Orders" Type="AppDBModel.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="id_state" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AppDBModelStoreContainer" CdmEntityContainer="AppDBEntities">
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="AppDBModel.Branch">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="location_x" ColumnName="location_x" />
+                <ScalarProperty Name="location_y" ColumnName="location_y" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Colors">
+            <EntityTypeMapping TypeName="AppDBModel.Color">
+              <MappingFragment StoreEntitySet="Colors">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EquipmentPrices">
+            <EntityTypeMapping TypeName="AppDBModel.EquipmentPrice">
+              <MappingFragment StoreEntitySet="EquipmentPrices">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_model" ColumnName="id_model" />
+                <ScalarProperty Name="id_equipment" ColumnName="id_equipment" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipments">
+            <EntityTypeMapping TypeName="AppDBModel.Equipment">
+              <MappingFragment StoreEntitySet="Equipments">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Makes">
+            <EntityTypeMapping TypeName="AppDBModel.Make">
+              <MappingFragment StoreEntitySet="Makes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Models">
+            <EntityTypeMapping TypeName="AppDBModel.Model">
+              <MappingFragment StoreEntitySet="Models">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_make" ColumnName="id_make" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="AppDBModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_seller" ColumnName="id_seller" />
+                <ScalarProperty Name="id_car" ColumnName="id_car" />
+                <ScalarProperty Name="id_color" ColumnName="id_color" />
+                <ScalarProperty Name="id_state" ColumnName="id_state" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="realization" ColumnName="realization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="AppDBModel.Seller">
+              <MappingFragment StoreEntitySet="Sellers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id_branch" ColumnName="id_branch" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="AppDBModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
