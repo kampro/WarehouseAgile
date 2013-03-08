@@ -19,11 +19,11 @@ namespace WarehouseAgile
             this.Sellers = new HashSet<Seller>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public string address { get; set; }
-        public Nullable<int> location_x { get; set; }
-        public Nullable<int> location_y { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public Nullable<int> Location_x { get; set; }
+        public Nullable<int> Location_y { get; set; }
     
         public virtual ICollection<Seller> Sellers { get; set; }
     }

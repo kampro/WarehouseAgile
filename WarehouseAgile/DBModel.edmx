@@ -46,92 +46,92 @@
         </EntityContainer>
         <EntityType Name="Branches">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="address" Type="varchar" MaxLength="100" />
-          <Property Name="location_x" Type="int" />
-          <Property Name="location_y" Type="int" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="Location_x" Type="int" />
+          <Property Name="Location_y" Type="int" />
         </EntityType>
         <EntityType Name="Colors">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="price" Type="real" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Price" Type="real" />
         </EntityType>
         <EntityType Name="EquipmentPrices">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="id_model" Type="int" Nullable="false" />
-          <Property Name="id_equipment" Type="int" Nullable="false" />
-          <Property Name="price" Type="real" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_model" Type="int" Nullable="false" />
+          <Property Name="Id_equipment" Type="int" Nullable="false" />
+          <Property Name="Price" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="Equipments">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="Makes">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="Models">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="id_make" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="price" Type="real" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_make" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Price" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="id_seller" Type="int" Nullable="false" />
-          <Property Name="id_car" Type="int" Nullable="false" />
-          <Property Name="id_color" Type="int" Nullable="false" />
-          <Property Name="id_state" Type="int" Nullable="false" />
-          <Property Name="date" Type="datetime" Nullable="false" />
-          <Property Name="realization" Type="date" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_seller" Type="int" Nullable="false" />
+          <Property Name="Id_car" Type="int" Nullable="false" />
+          <Property Name="Id_color" Type="int" Nullable="false" />
+          <Property Name="Id_state" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Realization" Type="date" />
         </EntityType>
         <EntityType Name="Sellers">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="id_user" Type="uniqueidentifier" />
-          <Property Name="id_branch" Type="int" />
-          <Property Name="name" Type="varchar" MaxLength="100" />
-          <Property Name="surname" Type="varchar" MaxLength="100" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_user" Type="uniqueidentifier" />
+          <Property Name="Id_branch" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Surname" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="States">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Branch">
           <End Role="Branches" Type="AppDBModel.Store.Branches" Multiplicity="0..1" />
           <End Role="Sellers" Type="AppDBModel.Store.Sellers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Branches">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Sellers">
-              <PropertyRef Name="id_branch" />
+              <PropertyRef Name="Id_branch" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -140,10 +140,10 @@
           <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EquipmentPrices">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="id_car" />
+              <PropertyRef Name="Id_car" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -152,10 +152,10 @@
           <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Colors">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="id_color" />
+              <PropertyRef Name="Id_color" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -164,10 +164,10 @@
           <End Role="EquipmentPrices" Type="AppDBModel.Store.EquipmentPrices" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Equipments">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="EquipmentPrices">
-              <PropertyRef Name="id_equipment" />
+              <PropertyRef Name="Id_equipment" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -176,10 +176,10 @@
           <End Role="Models" Type="AppDBModel.Store.Models" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Makes">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Models">
-              <PropertyRef Name="id_make" />
+              <PropertyRef Name="Id_make" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -188,10 +188,10 @@
           <End Role="EquipmentPrices" Type="AppDBModel.Store.EquipmentPrices" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Models">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="EquipmentPrices">
-              <PropertyRef Name="id_model" />
+              <PropertyRef Name="Id_model" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -200,10 +200,10 @@
           <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="States">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="id_state" />
+              <PropertyRef Name="Id_state" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -253,95 +253,95 @@
         </EntityContainer>
         <EntityType Name="Branch">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="address" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="location_x" Type="Int32" />
-          <Property Name="location_y" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Location_x" Type="Int32" />
+          <Property Name="Location_y" Type="Int32" />
           <NavigationProperty Name="Sellers" Relationship="AppDBModel.FK_Branch" FromRole="Branches" ToRole="Sellers" />
         </EntityType>
         <EntityType Name="Color">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="price" Type="Single" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Price" Type="Single" />
           <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_Color" FromRole="Colors" ToRole="Orders" />
         </EntityType>
         <EntityType Name="EquipmentPrice">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="id_model" Type="Int32" Nullable="false" />
-          <Property Name="id_equipment" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Single" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_model" Type="Int32" Nullable="false" />
+          <Property Name="Id_equipment" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Single" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_Car" FromRole="EquipmentPrices" ToRole="Orders" />
           <NavigationProperty Name="Equipment" Relationship="AppDBModel.FK_Equipment" FromRole="EquipmentPrices" ToRole="Equipments" />
           <NavigationProperty Name="Model" Relationship="AppDBModel.FK_Model" FromRole="EquipmentPrices" ToRole="Models" />
         </EntityType>
         <EntityType Name="Equipment">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="EquipmentPrices" Relationship="AppDBModel.FK_Equipment" FromRole="Equipments" ToRole="EquipmentPrices" />
         </EntityType>
         <EntityType Name="Make">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Models" Relationship="AppDBModel.FK_Make" FromRole="Makes" ToRole="Models" />
         </EntityType>
         <EntityType Name="Model">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="id_make" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="price" Type="Single" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_make" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Price" Type="Single" Nullable="false" />
           <NavigationProperty Name="EquipmentPrices" Relationship="AppDBModel.FK_Model" FromRole="Models" ToRole="EquipmentPrices" />
           <NavigationProperty Name="Make" Relationship="AppDBModel.FK_Make" FromRole="Models" ToRole="Makes" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="id_seller" Type="Int32" Nullable="false" />
-          <Property Name="id_car" Type="Int32" Nullable="false" />
-          <Property Name="id_color" Type="Int32" Nullable="false" />
-          <Property Name="id_state" Type="Int32" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="realization" Type="DateTime" Precision="0" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_seller" Type="Int32" Nullable="false" />
+          <Property Name="Id_car" Type="Int32" Nullable="false" />
+          <Property Name="Id_color" Type="Int32" Nullable="false" />
+          <Property Name="Id_state" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Realization" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Color" Relationship="AppDBModel.FK_Color" FromRole="Orders" ToRole="Colors" />
           <NavigationProperty Name="EquipmentPrice" Relationship="AppDBModel.FK_Car" FromRole="Orders" ToRole="EquipmentPrices" />
           <NavigationProperty Name="State" Relationship="AppDBModel.FK_State" FromRole="Orders" ToRole="States" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="id_user" Type="Guid" />
-          <Property Name="id_branch" Type="Int32" />
-          <Property Name="name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="surname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_user" Type="Guid" />
+          <Property Name="Id_branch" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Surname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Branch" Relationship="AppDBModel.FK_Branch" FromRole="Sellers" ToRole="Branches" />
         </EntityType>
         <EntityType Name="State">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_State" FromRole="States" ToRole="Orders" />
         </EntityType>
         <Association Name="FK_Branch">
@@ -349,10 +349,10 @@
           <End Role="Sellers" Type="AppDBModel.Seller" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Branches">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Sellers">
-              <PropertyRef Name="id_branch" />
+              <PropertyRef Name="Id_branch" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -361,10 +361,10 @@
           <End Role="Orders" Type="AppDBModel.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Colors">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="id_color" />
+              <PropertyRef Name="Id_color" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -373,10 +373,10 @@
           <End Role="Orders" Type="AppDBModel.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EquipmentPrices">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="id_car" />
+              <PropertyRef Name="Id_car" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -385,10 +385,10 @@
           <End Role="EquipmentPrices" Type="AppDBModel.EquipmentPrice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Equipments">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="EquipmentPrices">
-              <PropertyRef Name="id_equipment" />
+              <PropertyRef Name="Id_equipment" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -397,10 +397,10 @@
           <End Role="EquipmentPrices" Type="AppDBModel.EquipmentPrice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Models">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="EquipmentPrices">
-              <PropertyRef Name="id_model" />
+              <PropertyRef Name="Id_model" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -409,10 +409,10 @@
           <End Role="Models" Type="AppDBModel.Model" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Makes">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Models">
-              <PropertyRef Name="id_make" />
+              <PropertyRef Name="Id_make" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -421,10 +421,10 @@
           <End Role="Orders" Type="AppDBModel.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="States">
-              <PropertyRef Name="id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="id_state" />
+              <PropertyRef Name="Id_state" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -437,88 +437,88 @@
           <EntitySetMapping Name="Branches">
             <EntityTypeMapping TypeName="AppDBModel.Branch">
               <MappingFragment StoreEntitySet="Branches">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="location_x" ColumnName="location_x" />
-                <ScalarProperty Name="location_y" ColumnName="location_y" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Location_x" ColumnName="Location_x" />
+                <ScalarProperty Name="Location_y" ColumnName="Location_y" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Colors">
             <EntityTypeMapping TypeName="AppDBModel.Color">
               <MappingFragment StoreEntitySet="Colors">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EquipmentPrices">
             <EntityTypeMapping TypeName="AppDBModel.EquipmentPrice">
               <MappingFragment StoreEntitySet="EquipmentPrices">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_model" ColumnName="id_model" />
-                <ScalarProperty Name="id_equipment" ColumnName="id_equipment" />
-                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_model" ColumnName="Id_model" />
+                <ScalarProperty Name="Id_equipment" ColumnName="Id_equipment" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Equipments">
             <EntityTypeMapping TypeName="AppDBModel.Equipment">
               <MappingFragment StoreEntitySet="Equipments">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Makes">
             <EntityTypeMapping TypeName="AppDBModel.Make">
               <MappingFragment StoreEntitySet="Makes">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Models">
             <EntityTypeMapping TypeName="AppDBModel.Model">
               <MappingFragment StoreEntitySet="Models">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_make" ColumnName="id_make" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_make" ColumnName="Id_make" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="AppDBModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_seller" ColumnName="id_seller" />
-                <ScalarProperty Name="id_car" ColumnName="id_car" />
-                <ScalarProperty Name="id_color" ColumnName="id_color" />
-                <ScalarProperty Name="id_state" ColumnName="id_state" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="realization" ColumnName="realization" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_seller" ColumnName="Id_seller" />
+                <ScalarProperty Name="Id_car" ColumnName="Id_car" />
+                <ScalarProperty Name="Id_color" ColumnName="Id_color" />
+                <ScalarProperty Name="Id_state" ColumnName="Id_state" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Realization" ColumnName="Realization" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sellers">
             <EntityTypeMapping TypeName="AppDBModel.Seller">
               <MappingFragment StoreEntitySet="Sellers">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_user" ColumnName="id_user" />
-                <ScalarProperty Name="id_branch" ColumnName="id_branch" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_user" ColumnName="Id_user" />
+                <ScalarProperty Name="Id_branch" ColumnName="Id_branch" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="States">
             <EntityTypeMapping TypeName="AppDBModel.State">
               <MappingFragment StoreEntitySet="States">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -536,7 +536,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

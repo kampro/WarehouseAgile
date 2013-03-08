@@ -19,9 +19,9 @@ namespace WarehouseAgile
             this.Orders = new HashSet<Order>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public Nullable<float> price { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Nullable<float> Price { get; set; }
     
         public virtual ICollection<Order> Orders { get; set; }
     }

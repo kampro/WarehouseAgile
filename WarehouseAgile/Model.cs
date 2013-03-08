@@ -19,10 +19,10 @@ namespace WarehouseAgile
             this.EquipmentPrices = new HashSet<EquipmentPrice>();
         }
     
-        public int id { get; set; }
-        public int id_make { get; set; }
-        public string name { get; set; }
-        public float price { get; set; }
+        public int Id { get; set; }
+        public int Id_make { get; set; }
+        public string Name { get; set; }
+        public float Price { get; set; }
     
         public virtual ICollection<EquipmentPrice> EquipmentPrices { get; set; }
         public virtual Make Make { get; set; }

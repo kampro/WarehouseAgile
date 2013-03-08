@@ -14,13 +14,13 @@ namespace WarehouseAgile
     
     public partial class Order
     {
-        public int id { get; set; }
-        public int id_seller { get; set; }
-        public int id_car { get; set; }
-        public int id_color { get; set; }
-        public int id_state { get; set; }
-        public System.DateTime date { get; set; }
-        public Nullable<System.DateTime> realization { get; set; }
+        public int Id { get; set; }
+        public int Id_seller { get; set; }
+        public int Id_car { get; set; }
+        public int Id_color { get; set; }
+        public int Id_state { get; set; }
+        public System.DateTime Date { get; set; }
+        public Nullable<System.DateTime> Realization { get; set; }
     
         public virtual Color Color { get; set; }
         public virtual EquipmentPrice EquipmentPrice { get; set; }
