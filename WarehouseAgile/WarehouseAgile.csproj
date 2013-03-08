@@ -138,6 +138,7 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModels.cs" />
+    <Compile Include="Models\MainModels.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

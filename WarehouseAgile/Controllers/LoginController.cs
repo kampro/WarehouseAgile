@@ -43,7 +43,7 @@ namespace WarehouseAgile.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", "Nazwa użytkownika lub hasło jest nieprawidłowe.");
                 }
             }
 
@@ -64,37 +64,37 @@ namespace WarehouseAgile.Controllers
         //
         // GET: /Login/Register
 
-        public ActionResult Register()
-        {
-            return View();
-        }
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Login/Register
 
-        [HttpPost]
-        public ActionResult Register(RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+        //[HttpPost]
+        //public ActionResult Register(RegisterModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Attempt to register the user
+        //        MembershipCreateStatus createStatus;
+        //        Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
 
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Main");
-                }
-                else
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                }
-            }
+        //        if (createStatus == MembershipCreateStatus.Success)
+        //        {
+        //            FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+        //            return RedirectToAction("Index", "Main");
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("", ErrorCodeToString(createStatus));
+        //        }
+        //    }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         //
         // GET: /Login/ChangePassword
@@ -134,7 +134,7 @@ namespace WarehouseAgile.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    ModelState.AddModelError("", "Aktualne lub nowe hasło jest nieprawidłowe.");
                 }
             }
 
@@ -158,34 +158,34 @@ namespace WarehouseAgile.Controllers
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
+                    return "Użytkownik już istnieje. Wprowadź inną nazwę użytkownika.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return "Już istnieje użytkownik skojarzony z podanym adresem e-mail. Podaj inny adres e-mail.";
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
+                    return "Wprowadzone hasło jest nieprawidłowe. Podaj inne hasło.";
 
                 case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
+                    return "Wprowadzony adres e-mail jest nieprawidłowy.";
 
                 case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+                    return "Odpowiedź do pytania odzyskiwania hasła jest nieprawidłowa.";
 
                 case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+                    return "Pytanie odzyskiwania hasła jest nieprawidłowe.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "Nazwa użytkownika jest nieprawidłowa. Podaj inną nazwę użytkownika.";
 
                 case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Dostawca autentykacji zwrócił błąd. Sprawdź dane i spróbuj ponownie, jeżeli błąd nadal występuje skontaktuj się z administratorem strony.";
 
                 case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Żądanie użytkownia zostało odrzucone. Sprawdź dane i spróbuj ponownie, jeżeli błąd nadal występuje skontaktuj się z administratorem strony.";
 
                 default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Wystąpił nieznany błąd. Sprawdź dane i spróbuj ponownie, jeżeli błąd nadal występuje skontaktuj się z administratorem strony.";
             }
         }
         #endregion

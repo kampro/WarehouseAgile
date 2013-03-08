@@ -1,5 +1,18 @@
-﻿@{
+﻿@model WarehouseAgile.Models.IndexModel
+
+@{
     ViewBag.Title = "";
 }
 
 <h2>Dzień dobry<br />Gut morning<br />Herclisie wilkomen</h2>
+
+<p>
+    @if(Model.LoggedUser != null)
+    {
+        @:Zalogowany użytkownik: @Model.LoggedUser | @Html.ActionLink("Wyloguj", "LogOff", "Login")    
+    }
+    else
+    {
+        @Html.ActionLink("Logowanie", "LogOn", "Login")
+    }
+</p>
