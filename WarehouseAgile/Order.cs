@@ -21,9 +21,11 @@ namespace WarehouseAgile
         public int Id_state { get; set; }
         public System.DateTime Date { get; set; }
         public Nullable<System.DateTime> Realization { get; set; }
+        public Nullable<int> Id_customer { get; set; }
     
         public virtual Color Color { get; set; }
         public virtual EquipmentPrice EquipmentPrice { get; set; }
         public virtual State State { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

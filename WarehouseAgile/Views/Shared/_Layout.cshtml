@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model WarehouseAgile.Models.LayoutModel
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>System obsługi salonów samochodowych</title>
@@ -7,6 +9,34 @@
 </head>
 
 <body>
-    @RenderBody()
+    <div class="menu">
+        <ul>
+            @if(Model == null)
+            {
+                <li>@Html.ActionLink("Strona główna", "Index", "Main")</li>
+            }
+            else
+            {
+                if(Model.LoggedUser != null)
+                {
+                    foreach (var m in Model.Menu)
+                    {
+                        <li>@Html.ActionLink(m[0], m[1], m[2])</li>
+                    }
+
+                    <li>@Html.ActionLink("Zmiana hasła", "ChangePassword", "Login")</li>
+                    <li>@Html.ActionLink("Wyloguj " + Model.LoggedUser, "LogOff", "Login")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Logowanie", "LogOn", "Login")</li>
+                }
+            }
+        </ul>
+    </div>
+
+    <div class="body">
+        @RenderBody()
+    </div>
 </body>
 </html>

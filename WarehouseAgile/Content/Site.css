@@ -4,6 +4,8 @@
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
+
+    margin: 0px;
 }
 
 header,
@@ -72,4 +74,45 @@ textarea
 .validation-summary-valid
 {
     display: none;
+}
+
+
+/* Styles for layout
+-----------------------------------------------------------*/
+div.menu {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background: #efeff2;
+}
+
+    div.menu ul {
+        overflow: hidden;
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+    }
+
+        div.menu ul li {
+            padding: 0px;
+            margin: 0px;
+            float: left;
+        }
+
+        div.menu ul a {
+            padding: 8px;
+            margin: 0px;
+            float: left;
+            text-decoration: none;
+            color: #232323;
+        }
+        div.menu ul a:link, div.menu ul a:visited {
+            background: #efeff2;
+        }
+        div.menu ul a:hover, div.menu ul a:active {
+            background: #fefefe;
+        }
+
+div.body {
+    margin: 8px;
 }

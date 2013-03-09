@@ -21,6 +21,8 @@
         <AssociationConnector Association="AppDBModel.FK_Model" ManuallyRouted="false" />
         <AssociationConnector Association="AppDBModel.FK_Make" ManuallyRouted="false" />
         <AssociationConnector Association="AppDBModel.FK_State" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AppDBModel.Customer" Width="1.5" PointX="6" PointY="10.125" />
+        <AssociationConnector Association="AppDBModel.FK_Customer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

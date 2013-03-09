@@ -13,11 +13,9 @@ namespace WarehouseAgile.Controllers
         //
         // GET: /Main/
 
-
-
         public ActionResult Index()
         {
-            IndexModel model = new IndexModel();
+            LayoutModel model = new LayoutModel();
 
             MembershipUser user = Membership.GetUser(this.User.Identity.Name);
             if (user != null)

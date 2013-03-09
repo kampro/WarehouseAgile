@@ -61,44 +61,6 @@ namespace WarehouseAgile.Controllers
             return RedirectToAction("Index", "Main");
         }
 
-        //
-        // GET: /Login/Register
-
-        //public ActionResult Register()
-        //{
-        //    return View();
-        //}
-
-        //
-        // POST: /Login/Register
-
-        //[HttpPost]
-        //public ActionResult Register(RegisterModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Attempt to register the user
-        //        MembershipCreateStatus createStatus;
-        //        Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
-        //        if (createStatus == MembershipCreateStatus.Success)
-        //        {
-        //            FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-        //            return RedirectToAction("Index", "Main");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", ErrorCodeToString(createStatus));
-        //        }
-        //    }
-
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
-
-        //
-        // GET: /Login/ChangePassword
-
         [Authorize]
         public ActionResult ChangePassword()
         {

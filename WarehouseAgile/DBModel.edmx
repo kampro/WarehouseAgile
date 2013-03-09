@@ -4,10 +4,11 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AppDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AppDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="AppDBModelStoreContainer">
           <EntitySet Name="Branches" EntityType="AppDBModel.Store.Branches" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Colors" EntityType="AppDBModel.Store.Colors" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Customers" EntityType="AppDBModel.Store.Customers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EquipmentPrices" EntityType="AppDBModel.Store.EquipmentPrices" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Equipments" EntityType="AppDBModel.Store.Equipments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Makes" EntityType="AppDBModel.Store.Makes" store:Type="Tables" Schema="dbo" />
@@ -25,6 +26,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Color" Association="AppDBModel.Store.FK_Color">
             <End Role="Colors" EntitySet="Colors" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer" Association="AppDBModel.Store.FK_Customer">
+            <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Equipment" Association="AppDBModel.Store.FK_Equipment">
@@ -61,6 +66,15 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="Price" Type="real" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Surname" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Address" Type="varchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="EquipmentPrices">
           <Key>
@@ -100,6 +114,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_seller" Type="int" Nullable="false" />
+          <Property Name="Id_customer" Type="int" />
           <Property Name="Id_car" Type="int" Nullable="false" />
           <Property Name="Id_color" Type="int" Nullable="false" />
           <Property Name="Id_state" Type="int" Nullable="false" />
@@ -159,6 +174,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Customer">
+          <End Role="Customers" Type="AppDBModel.Store.Customers" Multiplicity="0..1" />
+          <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Id_customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Equipment">
           <End Role="Equipments" Type="AppDBModel.Store.Equipments" Multiplicity="1" />
           <End Role="EquipmentPrices" Type="AppDBModel.Store.EquipmentPrices" Multiplicity="*" />
@@ -207,8 +234,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AppDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -249,6 +275,11 @@
           <AssociationSet Name="FK_State" Association="AppDBModel.FK_State">
             <End Role="States" EntitySet="States" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="Customers" EntityType="AppDBModel.Customer" />
+          <AssociationSet Name="FK_Customer" Association="AppDBModel.FK_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Branch">
@@ -324,6 +355,8 @@
           <NavigationProperty Name="Color" Relationship="AppDBModel.FK_Color" FromRole="Orders" ToRole="Colors" />
           <NavigationProperty Name="EquipmentPrice" Relationship="AppDBModel.FK_Car" FromRole="Orders" ToRole="EquipmentPrices" />
           <NavigationProperty Name="State" Relationship="AppDBModel.FK_State" FromRole="Orders" ToRole="States" />
+          <Property Type="Int32" Name="Id_customer" />
+          <NavigationProperty Name="Customer" Relationship="AppDBModel.FK_Customer" FromRole="Order" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
@@ -428,6 +461,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Surname" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_Customer" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_Customer">
+          <End Type="AppDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="AppDBModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -493,6 +548,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="AppDBModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Id_customer" ColumnName="Id_customer" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Id_seller" ColumnName="Id_seller" />
                 <ScalarProperty Name="Id_car" ColumnName="Id_car" />
@@ -522,6 +578,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="AppDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -536,7 +602,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
