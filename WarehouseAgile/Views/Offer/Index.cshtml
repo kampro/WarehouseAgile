@@ -1,0 +1,37 @@
+﻿@model WarehouseAgile.Models.OfferModel
+
+@{
+    ViewBag.Title = "";
+}
+
+<h2>Oferta</h2>
+
+@if (Model != null)
+{
+    using(Html.BeginForm())
+    {
+        if (Model.MakesList != null)
+        {
+            <select name="make" id="make" onchange="submit()">
+                <option value="0">>>> Marka <<<</option>
+                @foreach (var m in Model.MakesList)
+                {
+                    <option value="@m.Id" @if(Model.selectedMakeId == m.Id)
+                                          {
+                                              @: selected="selected" 
+                                          }>@m.Name</option>
+                }
+            </select>
+        }
+    
+        if (Model.ModelsList != null)
+        {
+            <select name="model" id="model">
+                @foreach (var m in Model.ModelsList)
+                {
+                    <option value="@m.Id">@m.Name</option>
+                }
+            </select>
+        }
+    }
+}

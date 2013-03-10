@@ -146,6 +146,7 @@
     </Compile>
     <Compile Include="Models\LoginModels.cs" />
     <Compile Include="Models\MainModels.cs" />
+    <Compile Include="Models\OfferModels.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -277,6 +278,8 @@
     <Content Include="Views\Login\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Login\LogOn.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Offer\Index.cshtml" />
+    <Content Include="Views\Main\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -5,9 +5,6 @@ using System.Web;
 
 namespace WarehouseAgile.Models
 {
-    // The class has implemented singleton pattern.
-    // In order to get instance use Instance property.
-
     public class LayoutModel
     {
         public string LoggedUser { get; set; }

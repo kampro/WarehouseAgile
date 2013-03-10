@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WarehouseAgile.Models;
 
 namespace WarehouseAgile.Controllers
 {
@@ -13,8 +14,13 @@ namespace WarehouseAgile.Controllers
 
         public ActionResult Index()
         {
-            return View();
-        }
+            OfferModel model = new OfferModel();
+            
+            int param;
+            if(int.TryParse(Request.Form["make"], out param))
+                model.FillModelsList(param);
 
+            return View(model);
+        }
     }
 }

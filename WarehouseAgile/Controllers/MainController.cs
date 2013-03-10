@@ -15,14 +15,19 @@ namespace WarehouseAgile.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult Menu()
+        {
             LayoutModel model = new LayoutModel();
 
             MembershipUser user = Membership.GetUser(this.User.Identity.Name);
             if (user != null)
                 model.LoggedUser = this.User.Identity.Name;
 
-            return View(model);
+            return PartialView("_Menu", model);
         }
-
     }
 }
