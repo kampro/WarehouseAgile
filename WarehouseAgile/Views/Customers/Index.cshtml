@@ -1,0 +1,42 @@
+﻿@model WarehouseAgile.Models.CustomersModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    @Html.ActionLink("Dodaj", "Add")
+</div>
+<hr />
+<h2>Index</h2>
+
+@if (Model != null)
+{
+    if (Model.Customers != null)
+    {
+        <table>
+            <tr id="header">
+                <td>Id</td>
+                <td>Imie</td>
+                <td>Nazwisko</td>
+                <td>Adres</td>
+            </tr>
+        @foreach(var m in Model.Customers)
+        {
+             <tr>
+                <td>@m.Id</td>
+                <td>@m.Name</td>
+                <td>@m.Surname</td>
+                <td>@m.Address</td>
+            </tr>           
+        }
+        </table>
+    }
+    else
+    {
+        <div class="error">brak listy klientów</div>
+    }
+}
+else
+{
+    <div class="error">brak modelu</div>
+}
