@@ -1,5 +1,4 @@
 ﻿@model WarehouseAgile.Models.OfferModel
-
 @{
     ViewBag.Title = "";
 }
@@ -8,7 +7,7 @@
 
 @if (Model != null)
 {
-    using(Html.BeginForm())
+    using (Html.BeginForm(null, null, FormMethod.Get))
     {
         if (Model.MakesList != null)
         {
@@ -16,22 +15,49 @@
                 <option value="0">>>> Marka <<<</option>
                 @foreach (var m in Model.MakesList)
                 {
-                    <option value="@m.Id" @if(Model.selectedMakeId == m.Id)
+                    <option value="@m.Id" @if (Model.selectedMakeId == m.Id)
                                           {
                                               @: selected="selected" 
                                           }>@m.Name</option>
                 }
             </select>
         }
-    
+
         if (Model.ModelsList != null)
         {
-            <select name="model" id="model">
+            <select name="model" id="model" onchange="submit()">
+                <option value="0">>>> Model <<<</option>
                 @foreach (var m in Model.ModelsList)
                 {
-                    <option value="@m.Id">@m.Name</option>
+                    <option value="@m.Id" @if (Model.selectedModelId == m.Id)
+                                          {
+                                              @: selected="selected" 
+                                          }>@m.Name</option>
                 }
             </select>
+        }
+    }
+
+    if (Model.EquipmentPricesList != null)
+    {
+        using(var context = new WarehouseAgile.AppDBEntities())
+        {
+            var basePrice = (from m in context.Models
+                             where m.Id == Model.selectedModelId
+                             select m.Price).First();
+            
+            <div>Cena podstawowa: @basePrice zł</div>
+            
+            string modelName;
+                    
+            foreach (var ep in Model.EquipmentPricesList)
+            {
+                modelName = (from e in context.Equipments
+                             where e.Id == ep.Id_equipment
+                             select e.Name).First();
+                                
+                <div>@(modelName): + @ep.Price zł</div>
+            }
         }
     }
 }

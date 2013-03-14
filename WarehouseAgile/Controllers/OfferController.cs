@@ -17,8 +17,12 @@ namespace WarehouseAgile.Controllers
             OfferModel model = new OfferModel();
             
             int param;
-            if(int.TryParse(Request.Form["make"], out param))
+
+            if(int.TryParse(Request.QueryString["make"], out param))
                 model.FillModelsList(param);
+
+            if (int.TryParse(Request.QueryString["model"], out param))
+                model.FillEquipmentList(param);
 
             return View(model);
         }
