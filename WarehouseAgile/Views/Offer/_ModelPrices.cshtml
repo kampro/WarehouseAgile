@@ -1,0 +1,9 @@
+﻿@model WarehouseAgile.Models.ModelPricesModel
+
+<div id="model-prices">
+    <div>Cena podstawowa: @Model.BasePrice zł</div>
+    @foreach (var m in Model.EquipmentPricesList)
+    {
+        <div>@(m.Name): + @m.Price zł</div>
+    }
+</div>

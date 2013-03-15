@@ -249,6 +249,7 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\offer.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -262,12 +263,6 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\MicrosoftAjax.js" />
-    <Content Include="Scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -280,6 +275,8 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Offer\Index.cshtml" />
     <Content Include="Views\Main\_Menu.cshtml" />
+    <Content Include="Views\Offer\_Models.cshtml" />
+    <Content Include="Views\Offer\_ModelPrices.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿@model WarehouseAgile.Models.OfferModel
+﻿@model WarehouseAgile.Models.MakesModel
 @{
     ViewBag.Title = "";
 }
@@ -7,57 +7,29 @@
 
 @if (Model != null)
 {
-    using (Html.BeginForm(null, null, FormMethod.Get))
+    using (Ajax.BeginForm("GetModels", "", new AjaxOptions() { UpdateTargetId = "model-select", LoadingElementId = "", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "make-form" }))
     {
         if (Model.MakesList != null)
         {
-            <select name="make" id="make" onchange="submit()">
+            <select name="make" id="make-select">
                 <option value="0">>>> Marka <<<</option>
                 @foreach (var m in Model.MakesList)
                 {
-                    <option value="@m.Id" @if (Model.selectedMakeId == m.Id)
-                                          {
-                                              @: selected="selected" 
-                                          }>@m.Name</option>
-                }
-            </select>
-        }
-
-        if (Model.ModelsList != null)
-        {
-            <select name="model" id="model" onchange="submit()">
-                <option value="0">>>> Model <<<</option>
-                @foreach (var m in Model.ModelsList)
-                {
-                    <option value="@m.Id" @if (Model.selectedModelId == m.Id)
-                                          {
-                                              @: selected="selected" 
-                                          }>@m.Name</option>
+                    <option value="@m.Id">@m.Name</option>
                 }
             </select>
         }
     }
 
-    if (Model.EquipmentPricesList != null)
+    using (Ajax.BeginForm("GetModelPrices", "", new AjaxOptions() { UpdateTargetId = "model-prices", LoadingElementId = "", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "model-form" }))
     {
-        using(var context = new WarehouseAgile.AppDBEntities())
-        {
-            var basePrice = (from m in context.Models
-                             where m.Id == Model.selectedModelId
-                             select m.Price).First();
-            
-            <div>Cena podstawowa: @basePrice zł</div>
-            
-            string modelName;
-                    
-            foreach (var ep in Model.EquipmentPricesList)
-            {
-                modelName = (from e in context.Equipments
-                             where e.Id == ep.Id_equipment
-                             select e.Name).First();
-                                
-                <div>@(modelName): + @ep.Price zł</div>
-            }
-        }
+        <select name="model" id="model-select">
+            <option value="0">>>> Model <<<</option>
+        </select>
     }
+    
+    <div id="model-prices"></div>
 }
+
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/offer.js")" type="text/javascript"></script>

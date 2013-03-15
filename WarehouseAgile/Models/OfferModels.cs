@@ -8,15 +8,11 @@ using WarehouseAgile;
 
 namespace WarehouseAgile.Models
 {
-    public class OfferModel
+    public class MakesModel
     {
         #region Fields
 
-        public int selectedMakeId;
-        public int selectedModelId;
         private List<Make> makes;
-        private List<Model> models;
-        private List<EquipmentPrice> equipmentPrices;
 
         #endregion
 
@@ -27,57 +23,13 @@ namespace WarehouseAgile.Models
             get { return this.makes; }
         }
 
-        public List<Model> ModelsList
-        {
-            get { return this.models; }
-        }
-
-        public List<EquipmentPrice> EquipmentPricesList
-        {
-            get { return this.equipmentPrices; }
-        }
-
         #endregion
 
         #region Methods
 
-        public OfferModel()
+        public MakesModel()
         {
             this.FillMakesList();
-            this.selectedMakeId = 0;
-            this.selectedModelId = 0;
-        }
-
-        // Fills models lists with make specified data
-        public void FillModelsList(int makeId)
-        {
-            this.selectedMakeId = makeId;
-            this.models = new List<Model>();
-
-            using (AppDBEntities context = new AppDBEntities())
-            {
-                var modelsDB = from m in context.Models
-                               where m.Id_make == makeId
-                               select m;
-                foreach (Model m in modelsDB)
-                    this.models.Add(m);
-            }
-        }
-
-        // Fills equipments for specified model
-        public void FillEquipmentList(int modelId)
-        {
-            this.selectedModelId = modelId;
-            this.equipmentPrices = new List<EquipmentPrice>();
-
-            using (AppDBEntities context = new AppDBEntities())
-            {
-                var equipmentPricesDB = from ep in context.EquipmentPrices
-                                        where ep.Id_model == modelId
-                                        select ep;
-                foreach (EquipmentPrice ep in equipmentPricesDB)
-                    this.equipmentPrices.Add(ep);
-            }
         }
 
         private void FillMakesList()
@@ -87,8 +39,99 @@ namespace WarehouseAgile.Models
             using (AppDBEntities context = new AppDBEntities())
             {
                 //DbSet<Make> ds = context.Makes;
-                foreach (Make m in context.Makes)
-                    this.makes.Add(m);
+                this.makes = context.Makes.ToList();
+            }
+        }
+
+        #endregion
+    }
+
+    public class ModelsModel
+    {
+        #region Fields
+
+        private List<Model> models;
+
+        #endregion
+
+        #region Properties
+
+        public List<Model> ModelsList
+        {
+            get { return this.models; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        // Fills models list for specified make
+        public void FillModelsList(int makeId)
+        {
+            this.models = new List<Model>();
+
+            using (AppDBEntities context = new AppDBEntities())
+            {
+                this.models = (from m in context.Models
+                               where m.Id_make == makeId
+                               select m).ToList();
+            }
+        }
+
+        #endregion
+    }
+
+    public class ModelPricesModel
+    {
+        #region Nested types
+
+        public class EquipmentPrice
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public float Price { get; set; }
+        }
+
+        #endregion
+
+        #region Fields
+
+        private List<EquipmentPrice> equipmentPrices;
+        private float basePrice;
+
+        #endregion
+
+        #region Properties
+
+        public List<EquipmentPrice> EquipmentPricesList
+        {
+            get { return this.equipmentPrices; }
+        }
+
+        public float BasePrice
+        {
+            get { return this.basePrice; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        // Fills equipments list with variants and prices for specified model
+        public void FillEquipmentList(int modelId)
+        {
+            this.equipmentPrices = new List<EquipmentPrice>();
+
+            using (AppDBEntities context = new AppDBEntities())
+            {
+                this.basePrice = (from m in context.Models
+                                  where m.Id == modelId
+                                  select m.Price).FirstOrDefault();
+
+                this.equipmentPrices = (from ep in context.EquipmentPrices
+                                        join e in context.Equipments on ep.Id_equipment equals e.Id
+                                        where ep.Id_model == modelId
+                                        select new EquipmentPrice { Id = ep.Id, Name = e.Name, Price = ep.Price }).ToList();
             }
         }
 
