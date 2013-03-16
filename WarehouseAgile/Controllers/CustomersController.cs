@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WarehouseAgile.Models;
 
 namespace WarehouseAgile.Controllers
 {
@@ -13,7 +14,34 @@ namespace WarehouseAgile.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            CustomersModel model = new CustomersModel();
+
+            model.Index();
+
+            return View(model);
+        }
+
+        public ActionResult Add()
+        {
+            return View(new Customer());
+        }
+
+        [HttpPost]
+        public ActionResult Add(Customer newCustomer)
+        {
+            try
+            {
+                using (AppDBEntities db = new AppDBEntities())
+                {
+                    db.Customers.Add(newCustomer);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index", "Customers");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
     }

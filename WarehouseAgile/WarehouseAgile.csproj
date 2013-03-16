@@ -144,6 +144,7 @@
     <Compile Include="Model.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomersModel.cs" />
     <Compile Include="Models\LoginModels.cs" />
     <Compile Include="Models\MainModels.cs" />
     <Compile Include="Models\OfferModels.cs" />
@@ -280,6 +281,8 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Offer\Index.cshtml" />
     <Content Include="Views\Main\_Menu.cshtml" />
+    <Content Include="Views\Customers\Add.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
