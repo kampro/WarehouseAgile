@@ -14,13 +14,37 @@ namespace WarehouseAgile.Controllers
 
         public ActionResult Index()
         {
-            OfferModel model = new OfferModel();
-            
-            int param;
-            if(int.TryParse(Request.Form["make"], out param))
-                model.FillModelsList(param);
+            MakesModel model = new MakesModel();
 
             return View(model);
+        }
+
+        //
+        // GET: /Offer/GetModels
+
+        public PartialViewResult GetModels()
+        {
+            ModelsModel model = new ModelsModel();
+
+            int param;
+            if (int.TryParse(Request.QueryString["make"], out param))
+                model.FillModelsList(param);
+
+            return PartialView("_Models", model);
+        }
+
+        //
+        // GET: /Offer/GetModelPrices
+
+        public PartialViewResult GetModelPrices()
+        {
+            ModelPricesModel model = new ModelPricesModel();
+
+            int param;
+            if (int.TryParse(Request.QueryString["model"], out param))
+                model.FillModel(param);
+
+            return PartialView("_ModelPrices", model);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace WarehouseAgile.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult Menu()
+        public PartialViewResult Menu()
         {
             LayoutModel model = new LayoutModel();
 

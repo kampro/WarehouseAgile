@@ -8,42 +8,28 @@ using WarehouseAgile;
 
 namespace WarehouseAgile.Models
 {
-    public class OfferModel
+    public class MakesModel
     {
-        public int selectedMakeId;
+        #region Fields
+
         private List<Make> makes;
-        private List<Model> models;
+
+        #endregion
+
+        #region Properties
 
         public List<Make> MakesList
         {
             get { return this.makes; }
         }
 
-        public List<Model> ModelsList
-        {
-            get { return this.models; }
-        }
+        #endregion
 
-        public OfferModel()
+        #region Methods
+
+        public MakesModel()
         {
             this.FillMakesList();
-            this.selectedMakeId = 0;
-        }
-
-        // Fills models lists with make specified data
-        public void FillModelsList(int makeId)
-        {
-            this.selectedMakeId = makeId;
-            this.models = new List<Model>();
-
-            using (AppDBEntities context = new AppDBEntities())
-            {
-                var models = from m in context.Models
-                             where m.Id_make == makeId
-                             select m;
-                foreach (Model m in models)
-                    this.models.Add(m);
-            }
         }
 
         private void FillMakesList()
@@ -53,9 +39,102 @@ namespace WarehouseAgile.Models
             using (AppDBEntities context = new AppDBEntities())
             {
                 //DbSet<Make> ds = context.Makes;
-                foreach (Make m in context.Makes)
-                    this.makes.Add(m);
+                this.makes = context.Makes.ToList();
             }
         }
+
+        #endregion
+    }
+
+    public class ModelsModel
+    {
+        #region Fields
+
+        private List<Model> models;
+
+        #endregion
+
+        #region Properties
+
+        public List<Model> ModelsList
+        {
+            get { return this.models; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        // Fills models list for specified make
+        public void FillModelsList(int makeId)
+        {
+            this.models = new List<Model>();
+
+            using (AppDBEntities context = new AppDBEntities())
+            {
+                this.models = (from m in context.Models
+                               where m.Id_make == makeId
+                               select m).ToList();
+            }
+        }
+
+        #endregion
+    }
+
+    public class ModelPricesModel
+    {
+        #region Nested types
+
+        public class EquipmentPrice
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public float Price { get; set; }
+        }
+
+        #endregion
+
+        #region Fields
+
+        private Model currentModel;
+        private List<EquipmentPrice> equipmentPrices;
+
+        #endregion
+
+        #region Properties
+
+        public Model CurrentModel
+        {
+            get { return this.currentModel; }
+        }
+
+        public List<EquipmentPrice> EquipmentPricesList
+        {
+            get { return this.equipmentPrices; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        // Fills info and equipments list with variants and prices for specified model
+        public void FillModel(int modelId)
+        {
+            this.equipmentPrices = new List<EquipmentPrice>();
+
+            using (AppDBEntities context = new AppDBEntities())
+            {
+                this.currentModel = (from m in context.Models
+                                     where m.Id == modelId
+                                     select m).FirstOrDefault();
+
+                this.equipmentPrices = (from ep in context.EquipmentPrices
+                                        join e in context.Equipments on ep.Id_equipment equals e.Id
+                                        where ep.Id_model == modelId
+                                        select new EquipmentPrice { Id = ep.Id, Name = e.Name, Price = ep.Price }).ToList();
+            }
+        }
+
+        #endregion
     }
 }

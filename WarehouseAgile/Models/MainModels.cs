@@ -7,13 +7,24 @@ namespace WarehouseAgile.Models
 {
     public class LayoutModel
     {
+        #region Fields
+
+        private List<string[]> menu = new List<string[]>();
+
+        #endregion
+
+        #region Properties
+
         public string LoggedUser { get; set; }
+
         public List<string[]> Menu
         {
             get { return this.menu; } 
         }
 
-        private List<string[]> menu = new List<string[]>();
+        #endregion
+
+        #region Methods
 
         public LayoutModel()
         {
@@ -22,5 +33,7 @@ namespace WarehouseAgile.Models
             this.menu.Add(new string[] { "Oferta", "Index", "Offer" });
             this.menu.Add(new string[] { "Statystyki", "Index", "Stats" });
         }
+
+        #endregion
     }
 }

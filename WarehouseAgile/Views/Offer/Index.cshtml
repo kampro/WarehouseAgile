@@ -1,5 +1,4 @@
-﻿@model WarehouseAgile.Models.OfferModel
-
+﻿@model WarehouseAgile.Models.MakesModel
 @{
     ViewBag.Title = "";
 }
@@ -8,30 +7,33 @@
 
 @if (Model != null)
 {
-    using(Html.BeginForm())
+    using (Ajax.BeginForm("GetModels", "", new AjaxOptions() { UpdateTargetId = "model-select", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "make-form" }))
     {
         if (Model.MakesList != null)
         {
-            <select name="make" id="make" onchange="submit()">
+            <select name="make" id="make-select">
                 <option value="0">>>> Marka <<<</option>
                 @foreach (var m in Model.MakesList)
-                {
-                    <option value="@m.Id" @if(Model.selectedMakeId == m.Id)
-                                          {
-                                              @: selected="selected" 
-                                          }>@m.Name</option>
-                }
-            </select>
-        }
-    
-        if (Model.ModelsList != null)
-        {
-            <select name="model" id="model">
-                @foreach (var m in Model.ModelsList)
                 {
                     <option value="@m.Id">@m.Name</option>
                 }
             </select>
         }
     }
+
+    using (Ajax.BeginForm("GetModelPrices", "", new AjaxOptions() { UpdateTargetId = "model-details", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "model-form" }))
+    {
+        <select name="model" id="model-select">
+            <option value="0">>>> Model <<<</option>
+        </select>
+    }
+    
+    <div id="model-details"></div>
 }
+
+<div id="loading"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
+
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.10.2.custom.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/offer.js")" type="text/javascript"></script>
