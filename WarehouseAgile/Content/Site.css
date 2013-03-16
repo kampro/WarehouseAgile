@@ -178,3 +178,9 @@ div#loading {
             width: 100px;
             text-align: right;
         }
+/* Styles for Customers
+-----------------------------------------------------------*/
+#header {
+    background-color: #232323;
+    color: white;
+}
