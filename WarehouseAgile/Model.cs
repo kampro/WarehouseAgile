@@ -11,6 +11,7 @@ namespace WarehouseAgile
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Model
     {
@@ -21,7 +22,11 @@ namespace WarehouseAgile
     
         public int Id { get; set; }
         public int Id_make { get; set; }
+        [Required]
+        [Display(Name = "Nazwa")]
         public string Name { get; set; }
+        [Range(0, float.MaxValue, ErrorMessage = "Wartoœæ musi byæ liczb¹ dodatni¹")]
+        [Display(Name = "Cena bazowa")]
         public float Price { get; set; }
     
         public virtual ICollection<EquipmentPrice> EquipmentPrices { get; set; }

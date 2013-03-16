@@ -96,37 +96,37 @@ namespace WarehouseAgile.Models
 
         #region Fields
 
+        private Model currentModel;
         private List<EquipmentPrice> equipmentPrices;
-        private float basePrice;
 
         #endregion
 
         #region Properties
+
+        public Model CurrentModel
+        {
+            get { return this.currentModel; }
+        }
 
         public List<EquipmentPrice> EquipmentPricesList
         {
             get { return this.equipmentPrices; }
         }
 
-        public float BasePrice
-        {
-            get { return this.basePrice; }
-        }
-
         #endregion
 
         #region Methods
 
-        // Fills equipments list with variants and prices for specified model
-        public void FillEquipmentList(int modelId)
+        // Fills info and equipments list with variants and prices for specified model
+        public void FillModel(int modelId)
         {
             this.equipmentPrices = new List<EquipmentPrice>();
 
             using (AppDBEntities context = new AppDBEntities())
             {
-                this.basePrice = (from m in context.Models
-                                  where m.Id == modelId
-                                  select m.Price).FirstOrDefault();
+                this.currentModel = (from m in context.Models
+                                     where m.Id == modelId
+                                     select m).FirstOrDefault();
 
                 this.equipmentPrices = (from ep in context.EquipmentPrices
                                         join e in context.Equipments on ep.Id_equipment equals e.Id

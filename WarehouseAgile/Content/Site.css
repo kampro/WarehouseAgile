@@ -116,3 +116,65 @@ div.menu {
 div.body {
     margin: 8px;
 }
+
+/* Styles for Offer
+-----------------------------------------------------------*/
+div#loading {
+    display: none;
+    margin: 6px 2px 6px 2px;
+}
+
+#model-details {
+    overflow: hidden;
+    margin: 10px 0px 10px 0px;
+}
+
+    #model-details .head {
+        margin: 0px 0px 6px 0px;
+    }
+
+        #model-details .head input {
+            width: 80px;
+        }
+
+    #model-details .group {
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px 0px 0px 10px;
+    }
+
+    #model-details .row {
+        overflow: hidden;
+        width: 350px;
+        background: #efeff2;
+        padding: 4px;
+    }
+    #model-details .row:hover {
+        background: #fefefe;
+    }
+
+        #model-details .row .column-a {
+            overflow: hidden;
+            margin: 0px;
+            float: left;
+            width: 100px;
+        }
+
+        #model-details .row .column-b {
+            overflow: hidden;
+            margin: 0px;
+            float: left;
+            width: 120px;
+        }
+        
+            #model-details .row .column-b input {
+                width: 80px;
+            }
+
+        #model-details .row .column-c {
+            overflow: hidden;
+            margin: 0px;
+            float: left;
+            width: 100px;
+            text-align: right;
+        }

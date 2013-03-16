@@ -42,7 +42,7 @@ namespace WarehouseAgile.Controllers
 
             int param;
             if (int.TryParse(Request.QueryString["model"], out param))
-                model.FillEquipmentList(param);
+                model.FillModel(param);
 
             return PartialView("_ModelPrices", model);
         }
