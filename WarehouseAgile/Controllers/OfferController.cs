@@ -14,9 +14,18 @@ namespace WarehouseAgile.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        //
+        // GET: /Offer/GetMakes
+
+        [ChildActionOnly]
+        public ActionResult GetMakes()
+        {
             MakesModel model = new MakesModel();
 
-            return View(model);
+            return PartialView("_MakesSelect", model);
         }
 
         //
@@ -45,6 +54,32 @@ namespace WarehouseAgile.Controllers
                 model.FillModel(param);
 
             return PartialView("_ModelPrices", model);
+        }
+
+        //
+        // POST: /Offer/SaveModel
+
+        [HttpPost]
+        public ActionResult SaveModel()
+        {
+            int param;
+
+            if (int.TryParse(Request.Form["model-id"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Model model = (from m in context.Models
+                                   where m.Id == param
+                                   select m).First();
+
+                    model.Name = Request.Form["CurrentModel.Name"];
+                    model.Price = float.Parse(Request.Form["CurrentModel.Price"]);
+
+                    param = context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
         }
     }
 }

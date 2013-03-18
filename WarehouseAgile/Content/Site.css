@@ -114,7 +114,23 @@ div.menu {
         }
 
 div.body {
-    margin: 8px;
+    margin: 20px;
+}
+
+div.success {
+    background: #00b400;
+    border: none;
+    padding: 6px;
+    color: #fff;
+    margin: 6px 2px;
+}
+
+div.error {
+    background: #b40000;
+    border: none;
+    padding: 6px;
+    color: #fff;
+    margin: 6px 2px;
 }
 
 /* Styles for Offer
@@ -178,6 +194,7 @@ div#loading {
             width: 100px;
             text-align: right;
         }
+
 /* Styles for Customers
 -----------------------------------------------------------*/
 #header {

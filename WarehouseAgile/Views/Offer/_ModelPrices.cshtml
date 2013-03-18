@@ -1,10 +1,12 @@
 ﻿@model WarehouseAgile.Models.ModelPricesModel
 
 <div id="model-details">
-    @using (Ajax.BeginForm("SaveModel", "", new AjaxOptions() { UpdateTargetId = "savemodel-rsp", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "model-form" }))
+    <div id="savemodel-rsp"></div>
+    <h3>Edycja modelu @Model.MakeName @Model.CurrentModel.Name</h3>
+    @using (Ajax.BeginForm("SaveModel", "", new AjaxOptions() { OnSuccess = "saveModelSuccess", OnFailure = "saveModelError", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "POST" }, new { id = "model-form" }))
     {
         Html.ValidationSummary(true);
-        Html.Hidden("model-id", Model.CurrentModel.Id);
+        @Html.Hidden("model-id", Model.CurrentModel.Id);
         <div class="row">
             <div class="column-a">Nazwa:</div>
             <div class="column-b">@Html.TextBoxFor(m => m.CurrentModel.Name) @Html.ValidationMessageFor(m => m.CurrentModel.Name)</div>
@@ -26,8 +28,8 @@
                 </div>
             }
         </div>
+        <div><input type="submit" value="Zapisz" /></div>
     }
-    <div id="savemodel-rsp"></div>
 
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 </div>

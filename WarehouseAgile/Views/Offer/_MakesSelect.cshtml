@@ -1,0 +1,10 @@
+﻿@model WarehouseAgile.Models.MakesModel
+
+@if(Model != null)
+{
+    @:<option value="0">>>> Marka <<<</option>
+    foreach (var m in Model.MakesList)
+    {
+        <option value="@m.Id">@m.Name</option>
+    }
+}

@@ -1,35 +1,42 @@
-﻿@model WarehouseAgile.Models.MakesModel
-@{
+﻿@{
     ViewBag.Title = "";
 }
 
 <h2>Oferta</h2>
-
-@if (Model != null)
+@using (Ajax.BeginForm("GetModels", "", new AjaxOptions() { UpdateTargetId = "model-select", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "make-form" }))
 {
-    using (Ajax.BeginForm("GetModels", "", new AjaxOptions() { UpdateTargetId = "model-select", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "make-form" }))
-    {
-        if (Model.MakesList != null)
-        {
-            <select name="make" id="make-select">
-                <option value="0">>>> Marka <<<</option>
-                @foreach (var m in Model.MakesList)
-                {
-                    <option value="@m.Id">@m.Name</option>
-                }
-            </select>
-        }
-    }
+    <div class="row-clean">
+        <select name="make" id="make-select">
+            @Html.Action("GetMakes", "Offer")
+        </select>
+    </div>
+}
 
-    using (Ajax.BeginForm("GetModelPrices", "", new AjaxOptions() { UpdateTargetId = "model-details", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "model-form" }))
-    {
+@using (Ajax.BeginForm("GetModelPrices", "", new AjaxOptions() { UpdateTargetId = "model-details", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "model-form" }))
+{
+    <div class="row-clean">
         <select name="model" id="model-select">
             <option value="0">>>> Model <<<</option>
         </select>
-    }
-    
-    <div id="model-details"></div>
+    </div>
 }
+    
+<div id="model-details"></div>
+    
+<h3><span id="makes-header" class="ui-state-default ui-corner-all" style="float: left;"><span class="ui-icon ui-icon-circle-triangle-s"></span></span>&nbsp;Producenci</h3>
+<div id="makes-section">
+    <div class="row-clean">
+        <select name="make" id="makes-select">
+            @Html.Action("GetMakes", "Offer")
+        </select>
+    </div>
+</div>
+    
+<h3><span id="models-header" class="ui-state-default ui-corner-all" style="float: left;"><span class="ui-icon ui-icon-circle-triangle-s"></span></span>&nbsp;Modele</h3>
+<div id="models-section">...</div>
+    
+<h3><span id="equipments-header" class="ui-state-default ui-corner-all" style="float: left;"><span class="ui-icon ui-icon-circle-triangle-s"></span></span>&nbsp;Wersje wyposażenia</h3>
+<div id="equipments-section">...</div>
 
 <div id="loading"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
 

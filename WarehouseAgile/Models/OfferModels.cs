@@ -96,6 +96,7 @@ namespace WarehouseAgile.Models
 
         #region Fields
 
+        public string MakeName;
         private Model currentModel;
         private List<EquipmentPrice> equipmentPrices;
 
@@ -132,6 +133,8 @@ namespace WarehouseAgile.Models
                                         join e in context.Equipments on ep.Id_equipment equals e.Id
                                         where ep.Id_model == modelId
                                         select new EquipmentPrice { Id = ep.Id, Name = e.Name, Price = ep.Price }).ToList();
+
+                this.MakeName = this.CurrentModel.Make.Name;
             }
         }
 

@@ -299,6 +299,7 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Offer\_Models.cshtml" />
     <Content Include="Views\Offer\_ModelPrices.cshtml" />
+    <Content Include="Views\Offer\_MakesSelect.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
