@@ -39,7 +39,7 @@ namespace WarehouseAgile.Models
             using (AppDBEntities context = new AppDBEntities())
             {
                 //DbSet<Make> ds = context.Makes;
-                this.makes = context.Makes.ToList();
+                this.makes = context.Makes.OrderBy(x => x.Name).ToList();
             }
         }
 
@@ -74,14 +74,14 @@ namespace WarehouseAgile.Models
             {
                 this.models = (from m in context.Models
                                where m.Id_make == makeId
-                               select m).ToList();
+                               select m).OrderBy(x => x.Name).ToList();
             }
         }
 
         #endregion
     }
 
-    public class ModelPricesModel
+    public class ModelDetailsModel
     {
         #region Nested types
 
