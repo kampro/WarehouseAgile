@@ -46,7 +46,7 @@ namespace WarehouseAgile.Controllers
         //
         // GET: /Offer/GetModelDetails
 
-        [ChildActionOnly]
+        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
         public PartialViewResult GetModelDetails()
         {
             ModelDetailsModel model = new ModelDetailsModel();
@@ -87,7 +87,7 @@ namespace WarehouseAgile.Controllers
         //
         // GET: /Offer/GetMakeDetails
 
-        //[ChildActionOnly]
+        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
         public ActionResult GetMakeDetails()
         {
             int param;
@@ -105,7 +105,7 @@ namespace WarehouseAgile.Controllers
                         return Content(string.Format("Edycja {1}: <input type=\"hidden\" name=\"make-id\" value=\"{0}\"><input type=\"text\" name=\"make\" value=\"{1}\" /> <input type=\"submit\" value=\"Zapisz\" />", make.Id, make.Name));
                     }
                     else
-                        new ApplicationException("Can't find Make with specified Id");
+                        throw new ApplicationException("Can't find Make with specified Id");
                 }
             }
 
@@ -122,11 +122,13 @@ namespace WarehouseAgile.Controllers
             {
                 using (AppDBEntities context = new AppDBEntities())
                 {
-                    if ((from m in context.Makes where m.Name == Request.Form["make"] select m).Count() > 0)
-                        new ApplicationException("Make already exists");
+                    string make = Request.Form["make"];
+
+                    if ((from m in context.Makes where m.Name == make select m).Any())
+                        throw new ApplicationException("Make already exists");
                     else
                     {
-                        context.Makes.Add(new Make() { Name = Request.Form["make"] });
+                        context.Makes.Add(new Make() { Name = make });
                         context.SaveChanges();
                     }
                 }
@@ -153,6 +155,42 @@ namespace WarehouseAgile.Controllers
 
                     make.Name = Request.Form["make"];
                     context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
+        // GET: /Offer/GetEquipments
+
+        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
+        public ActionResult GetEquipments()
+        {
+            EquipmentsModel model = new EquipmentsModel();
+
+            return PartialView("_EquipmentsSelect", model);
+        }
+
+        //
+        // POST: /Offer/AddEquipment
+
+        [HttpPost]
+        public ActionResult AddEquipment()
+        {
+            if (Request.Form["equipment"].Length > 0)
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    string equipment = Request.Form["equipment"];
+
+                    if ((from e in context.Equipments where e.Name == equipment select e).Any())
+                        throw new ApplicationException("Equipment already exists");
+                    else
+                    {
+                        context.Equipments.Add(new Equipment() { Name = equipment });
+                        context.SaveChanges();
+                    }
                 }
             }
 

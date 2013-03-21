@@ -1,0 +1,10 @@
+﻿@model WarehouseAgile.Models.EquipmentsModel
+
+@if (Model != null)
+{
+    @:<option value="0">>>> Wyposażenie <<<</option>
+    foreach (var m in Model.EquipmentsList)
+    {
+        <option value="@m.Id">@m.Name</option>
+    }
+}

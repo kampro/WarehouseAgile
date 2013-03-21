@@ -29,6 +29,21 @@ $(document).ready(function () {
 	);
 });
 
+// Shared functions
+function showResponse(element, message) {
+    $(element).hide();
+    $(element).html(message);
+    $(element).fadeIn({ duration: 400, queue: false });
+    $(element).delay(3000).fadeOut({ duration: 400, queue: true });
+}
+function showSection(section) {
+    if ($(section).is(":hidden"))
+        $(section).fadeIn(400);
+    else
+        $(section).fadeOut(400);
+}
+
+// Models functions
 function saveModelSuccess() {
     showResponse("#savemodel-rsp", "<div class=\"success\">Dane zostały zapisane</div>");
 }
@@ -36,6 +51,7 @@ function saveModelError() {
     showResponse("#savemodel-rsp", "<div class=\"error\">Wystąpił błąd</div>");
 }
 
+// Makes functions
 function addMakeSuccess() {
     $.ajax({
         url: "/Offer/GetMakes",
@@ -56,16 +72,34 @@ function reloadMakes(data) {
     $("#makes-select").html(data);
     $("#models-make-select").html(data);
 }
+function addMakeError() {
+    showResponse("#savemake-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+function saveMakeError() {
+    showResponse("#savemake-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
 
-function showResponse(element, message) {
-    $(element).hide();
-    $(element).html(message);
-    $(element).fadeIn({ duration: 400, queue: false });
-    $(element).delay(3000).fadeOut({ duration: 400, queue: true });
+// Equipments functions
+function addEquipmentSuccess() {
+    $.ajax({
+        url: "/Offer/GetEquipments",
+        dataType: "html",
+        success: function (data) {
+            reloadEquipments(data);
+            showResponse("#saveequipment-rsp", "<div class=\"success\">Dane zostały zapisane</div>");
+        },
+        error: function () {
+            showResponse("#saveequipment-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+        }
+    });
 }
-function showSection(section) {
-    if ($(section).is(":hidden"))
-        $(section).fadeIn(400);
-    else
-        $(section).fadeOut(400);
+function reloadEquipments(data) {
+    $("#equipments-select").html(data);
 }
+function addEquipmentError() {
+    showResponse("#saveequipment-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+function saveEquipmentError() {
+    showResponse("#saveequipment-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+

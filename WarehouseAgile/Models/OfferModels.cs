@@ -34,8 +34,6 @@ namespace WarehouseAgile.Models
 
         private void FillMakesList()
         {
-            this.makes = new List<Make>();
-
             using (AppDBEntities context = new AppDBEntities())
             {
                 //DbSet<Make> ds = context.Makes;
@@ -68,8 +66,6 @@ namespace WarehouseAgile.Models
         // Fills models list for specified make
         public void FillModelsList(int makeId)
         {
-            this.models = new List<Model>();
-
             using (AppDBEntities context = new AppDBEntities())
             {
                 this.models = (from m in context.Models
@@ -121,8 +117,6 @@ namespace WarehouseAgile.Models
         // Fills info and equipments list with variants and prices for specified model
         public void FillModel(int modelId)
         {
-            this.equipmentPrices = new List<EquipmentPrice>();
-
             using (AppDBEntities context = new AppDBEntities())
             {
                 this.currentModel = (from m in context.Models
@@ -130,11 +124,45 @@ namespace WarehouseAgile.Models
                                      select m).FirstOrDefault();
 
                 this.equipmentPrices = (from ep in context.EquipmentPrices
-                                        join e in context.Equipments on ep.Id_equipment equals e.Id
                                         where ep.Id_model == modelId
-                                        select new EquipmentPrice { Id = ep.Id, Name = e.Name, Price = ep.Price }).ToList();
+                                        select new EquipmentPrice { Id = ep.Id, Name = ep.Equipment.Name, Price = ep.Price }).ToList();
 
                 this.MakeName = this.CurrentModel.Make.Name;
+            }
+        }
+
+        #endregion
+    }
+
+    public class EquipmentsModel
+    {
+        #region Fields
+
+        private List<Equipment> equipments;
+
+        #endregion
+
+        #region Properties
+
+        public List<Equipment> EquipmentsList
+        {
+            get { return this.equipments; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        public EquipmentsModel()
+        {
+            this.FillEquipmentsList();
+        }
+
+        private void FillEquipmentsList()
+        {
+            using (AppDBEntities context = new AppDBEntities())
+            {
+                this.equipments = context.Equipments.OrderBy(x => x.Name).ToList();
             }
         }
 

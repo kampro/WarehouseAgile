@@ -42,13 +42,13 @@
         </div>
     }
 
-    @using (Ajax.BeginForm("SaveMake", "", new AjaxOptions() { OnSuccess = "saveMakeSuccess", LoadingElementId = "loading2", HttpMethod = "POST" }, new { id = "make-form" }))
+    @using (Ajax.BeginForm("SaveMake", "", new AjaxOptions() { OnSuccess = "saveMakeSuccess", OnFailure = "saveMakeError", LoadingElementId = "loading2", HttpMethod = "POST" }, new { id = "make-form" }))
     {
         <div class="row-clean" id="make-details">
         </div>
     }
 
-    @using (Ajax.BeginForm("AddMake", "", new AjaxOptions() { OnSuccess = "addMakeSuccess", LoadingElementId = "loading2", HttpMethod = "POST" }, new { id = "makes-add-form" }))
+    @using (Ajax.BeginForm("AddMake", "", new AjaxOptions() { OnSuccess = "addMakeSuccess", OnFailure = "addMakeError", LoadingElementId = "loading2", HttpMethod = "POST" }, new { id = "makes-add-form" }))
     {
         <div class="row-clean">
             <input type="text" name="make" />
@@ -61,7 +61,26 @@
 
 <h3><span id="equipments-header" class="ui-state-default ui-corner-all" style="float: left;"><span class="ui-icon ui-icon-circle-triangle-s"></span></span>&nbsp;Wersje wyposażenia</h3>
 <div id="equipments-section">
-    ...
+    <div id="saveequipment-rsp"></div>
+
+    @using (Ajax.BeginForm("", "", new AjaxOptions() { UpdateTargetId = "-details", LoadingElementId = "loading3", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "equipments-form" }))
+    {
+        <div class="row-clean">
+            <select name="equipment" id="equipments-select">
+                @Html.Action("GetEquipments", "Offer")
+            </select>
+        </div>
+    }
+
+    @using (Ajax.BeginForm("AddEquipment", "", new AjaxOptions() { OnSuccess = "addEquipmentSuccess", OnFailure = "addEquipmentError", LoadingElementId = "loading3", HttpMethod = "POST" }, new { id = "equipments-add-form" }))
+    {
+        <div class="row-clean">
+            <input type="text" name="equipment" />
+            <input type="submit" value="Dodaj" />
+        </div>
+    }
+
+    <div id="loading3"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
 </div>
 
 <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
