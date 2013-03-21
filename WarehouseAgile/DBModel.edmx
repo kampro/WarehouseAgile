@@ -44,6 +44,10 @@
             <End Role="Models" EntitySet="Models" />
             <End Role="EquipmentPrices" EntitySet="EquipmentPrices" />
           </AssociationSet>
+          <AssociationSet Name="FK_Seller" Association="AppDBModel.Store.FK_Seller">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_State" Association="AppDBModel.Store.FK_State">
             <End Role="States" EntitySet="States" />
             <End Role="Orders" EntitySet="Orders" />
@@ -75,6 +79,7 @@
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="Surname" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="Address" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="EquipmentPrices">
           <Key>
@@ -222,6 +227,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Seller">
+          <End Role="Sellers" Type="AppDBModel.Store.Sellers" Multiplicity="1" />
+          <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Id_seller" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_State">
           <End Role="States" Type="AppDBModel.Store.States" Multiplicity="1" />
           <End Role="Orders" Type="AppDBModel.Store.Orders" Multiplicity="*" />
@@ -279,6 +296,10 @@
           <EntitySet Name="Customers" EntityType="AppDBModel.Customer" />
           <AssociationSet Name="FK_Customer" Association="AppDBModel.FK_Customer">
             <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seller" Association="AppDBModel.FK_Seller">
+            <End Role="Seller" EntitySet="Sellers" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
@@ -357,6 +378,7 @@
           <NavigationProperty Name="State" Relationship="AppDBModel.FK_State" FromRole="Orders" ToRole="States" />
           <Property Type="Int32" Name="Id_customer" />
           <NavigationProperty Name="Customer" Relationship="AppDBModel.FK_Customer" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Seller" Relationship="AppDBModel.FK_Seller" FromRole="Order" ToRole="Seller" />
         </EntityType>
         <EntityType Name="Seller">
           <Key>
@@ -368,6 +390,7 @@
           <Property Name="Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="Surname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Branch" Relationship="AppDBModel.FK_Branch" FromRole="Sellers" ToRole="Branches" />
+          <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_Seller" FromRole="Seller" ToRole="Order" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -470,6 +493,7 @@
           <Property Type="String" Name="Surname" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Address" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Orders" Relationship="AppDBModel.FK_Customer" FromRole="Customer" ToRole="Order" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Customer">
           <End Type="AppDBModel.Customer" Role="Customer" Multiplicity="0..1" />
@@ -480,6 +504,18 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="Id_customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seller">
+          <End Type="AppDBModel.Seller" Role="Seller" Multiplicity="1" />
+          <End Type="AppDBModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_seller" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -581,6 +617,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="AppDBModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

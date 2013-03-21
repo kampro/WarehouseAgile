@@ -27,5 +27,6 @@ namespace WarehouseAgile
         public virtual EquipmentPrice EquipmentPrice { get; set; }
         public virtual State State { get; set; }
         public virtual Customer Customer { get; set; }
+        public virtual Seller Seller { get; set; }
     }
 }

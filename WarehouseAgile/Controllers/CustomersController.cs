@@ -29,19 +29,14 @@ namespace WarehouseAgile.Controllers
         [HttpPost]
         public ActionResult Add(Customer newCustomer)
         {
-            try
+            using (AppDBEntities db = new AppDBEntities())
             {
-                using (AppDBEntities db = new AppDBEntities())
-                {
-                    db.Customers.Add(newCustomer);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Index", "Customers");
+                newCustomer.City = "kozia wólka";
+                db.Customers.Add(newCustomer);
+                db.SaveChanges();
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Index", "Customers");
         }
 
     }

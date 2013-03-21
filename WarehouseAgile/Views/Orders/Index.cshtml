@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WarehouseAgile.Models.OrderViewModel>
+
+<h2>Zamówienia</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+*@
+
+@if (Model != null && Model.Any())
+{
+    <table>
+        <tr>
+            <th>Data zamówienia
+            </th>
+            <th>Samochód
+            </th>
+            <th>Salon
+            </th>
+            <th>Kolor
+            </th>
+            <th>Cena
+            </th>
+            <th>Status
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(item.OrderDate.ToShortDateString())
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+              @*  <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                </td>*@
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <div class="error">Brak zamówień do wyświetlenia</div>
+}

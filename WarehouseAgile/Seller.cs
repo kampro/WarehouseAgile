@@ -14,6 +14,11 @@ namespace WarehouseAgile
     
     public partial class Seller
     {
+        public Seller()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+    
         public int Id { get; set; }
         public Nullable<System.Guid> Id_user { get; set; }
         public Nullable<int> Id_branch { get; set; }
@@ -21,5 +26,6 @@ namespace WarehouseAgile
         public string Surname { get; set; }
     
         public virtual Branch Branch { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

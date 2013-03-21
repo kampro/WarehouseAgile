@@ -148,6 +148,7 @@
     <Compile Include="Models\LoginModels.cs" />
     <Compile Include="Models\MainModels.cs" />
     <Compile Include="Models\OfferModels.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -300,6 +301,7 @@
     <Content Include="Views\Offer\_Models.cshtml" />
     <Content Include="Views\Offer\_ModelPrices.cshtml" />
     <Content Include="Views\Offer\_MakesSelect.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
