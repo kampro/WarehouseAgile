@@ -15,6 +15,7 @@
     {
         <table>
             <tr id="header">
+                <td>Opcje</td>
                 <td>Id</td>
                 <td>Imie</td>
                 <td>Nazwisko</td>
@@ -23,6 +24,10 @@
         @foreach(var m in Model.Customers)
         {
              <tr>
+                <td>@Html.ActionLink("Usuń", "Delete", new { id = m.Id } ) |
+                    @Html.ActionLink("Edytuj", "Edit", new { id = m.Id } ) |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = m.Id } )
+                </td>
                 <td>@m.Id</td>
                 <td>@m.Name</td>
                 <td>@m.Surname</td>

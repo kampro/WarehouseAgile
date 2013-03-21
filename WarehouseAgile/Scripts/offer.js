@@ -2,12 +2,17 @@
 /// <reference path="jquery-ui-1.10.2.custom.min.js" />
 
 $(document).ready(function () {
-    $("#make-select").change(function () {
-        $("#make-form").submit();
+    $("#models-make-select").change(function () {
+        $("#models-make-form").submit();
     });
-    $("#model-select").change(function () {
-        $("#model-form").submit();
+    $("#models-select").change(function () {
+        $("#models-form").submit();
     });
+
+    $("#makes-select").change(function () {
+        $("#makes-form").submit();
+    });
+
     $("#makes-section, #models-section, #equipments-section").hide();
     $("#makes-header").click(function () {
         showSection("#makes-section");
@@ -30,11 +35,33 @@ function saveModelSuccess() {
 function saveModelError() {
     showResponse("#savemodel-rsp", "<div class=\"error\">Wystąpił błąd</div>");
 }
+
+function addMakeSuccess() {
+    $.ajax({
+        url: "/Offer/GetMakes",
+        dataType: "html",
+        success: function (data) {
+            reloadMakes(data);
+            showResponse("#savemake-rsp", "<div class=\"success\">Dane zostały zapisane</div>");
+        },
+        error: function () {
+            showResponse("#savemake-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+        }
+    });
+}
+function saveMakeSuccess() {
+    addMakeSuccess();
+}
+function reloadMakes(data) {
+    $("#makes-select").html(data);
+    $("#models-make-select").html(data);
+}
+
 function showResponse(element, message) {
     $(element).hide();
     $(element).html(message);
-    $(element).fadeIn({ "duration": 400, "queue": false });
-    $(element).delay(3000).fadeOut({ "duration": 400, "queue": true });
+    $(element).fadeIn({ duration: 400, queue: false });
+    $(element).delay(3000).fadeOut({ duration: 400, queue: true });
 }
 function showSection(section) {
     if ($(section).is(":hidden"))

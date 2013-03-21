@@ -1,0 +1,10 @@
+﻿@model WarehouseAgile.Models.ModelsModel
+
+@if (Model != null)
+{
+    @:<option value="0">>>> Model <<<</option>
+    foreach (var m in Model.ModelsList)
+    {
+        <option value="@m.Id">@m.Name</option>
+    }
+}
