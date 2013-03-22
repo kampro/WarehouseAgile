@@ -170,6 +170,7 @@
       <DependentUpon>MembershipDB.mdf</DependentUpon>
     </Content>
     <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\images\under_construction.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -305,6 +306,8 @@
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Shared\AddCustomer.cshtml" />
     <Content Include="Views\Offer\_EquipmentsSelect.cshtml" />
+    <Content Include="Views\Stats\Index.cshtml" />
+    <Content Include="Views\Shared\_UnderConstruction.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

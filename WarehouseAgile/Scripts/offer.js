@@ -13,6 +13,10 @@ $(document).ready(function () {
         $("#makes-form").submit();
     });
 
+    $("#equipments-select").change(function () {
+        $("#equipments-form").submit();
+    });
+
     $("#makes-section, #models-section, #equipments-section").hide();
     $("#makes-header").click(function () {
         showSection("#makes-section");
@@ -23,13 +27,20 @@ $(document).ready(function () {
     $("#equipments-header").click(function () {
         showSection("#equipments-section");
     });
+    $("#equipment-details").ajaxComplete(function () {
+        postAjax();
+    });
+
+    postAjax();
+});
+
+// Shared functions
+function postAjax() {
     $(".ui-state-default").hover(
 		function () { $(this).addClass("ui-state-hover"); },
 		function () { $(this).removeClass("ui-state-hover"); }
 	);
-});
-
-// Shared functions
+}
 function showResponse(element, message) {
     $(element).hide();
     $(element).html(message);
@@ -49,6 +60,19 @@ function saveModelSuccess() {
 }
 function saveModelError() {
     showResponse("#savemodel-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+function addModelEquipmentSuccess() {
+    $.ajax({
+        url: "/Offer/GetModelDetails",
+        data: {
+            "model": $("#model-id").val()
+        },
+        dataType: "html",
+        success: function (data) {
+            $("#model-details").html(data);
+            saveModelSuccess();
+        }
+    });
 }
 
 // Makes functions

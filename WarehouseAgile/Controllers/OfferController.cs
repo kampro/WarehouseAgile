@@ -18,17 +18,6 @@ namespace WarehouseAgile.Controllers
         }
 
         //
-        // GET: /Offer/GetMakes
-
-        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
-        public ActionResult GetMakes()
-        {
-            MakesModel model = new MakesModel();
-
-            return PartialView("_MakesSelect", model);
-        }
-
-        //
         // GET: /Offer/GetModels
 
         //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
@@ -85,6 +74,34 @@ namespace WarehouseAgile.Controllers
         }
 
         //
+        // POST: /Offer/AddModelEquipment
+
+        [HttpPost]
+        public ActionResult AddModelEquipment()
+        {
+            int param;
+            int param2;
+
+            if (int.TryParse(Request.Form["model-id"], out param) && int.TryParse(Request.Form["equipment"], out param2))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    if ((from ep in context.EquipmentPrices
+                         where ep.Id_model == param && ep.Id_equipment == param2
+                         select ep).Any())
+                        throw new ApplicationException("Configuration already exists");
+                    else
+                    {
+                        context.EquipmentPrices.Add(new EquipmentPrice() { Id_model = param, Id_equipment = param2, Price = 0f });
+                        context.SaveChanges();
+                    }
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
         // GET: /Offer/GetMakeDetails
 
         //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
@@ -101,15 +118,11 @@ namespace WarehouseAgile.Controllers
                                  select m).FirstOrDefault();
 
                     if (make != null)
-                    {
                         return Content(string.Format("Edycja {1}: <input type=\"hidden\" name=\"make-id\" value=\"{0}\"><input type=\"text\" name=\"make\" value=\"{1}\" /> <input type=\"submit\" value=\"Zapisz\" />", make.Id, make.Name));
-                    }
-                    else
-                        throw new ApplicationException("Can't find Make with specified Id");
                 }
             }
 
-            return Content("null");
+            return Content("Brak rekordu o wskazanym identyfikatorze");
         }
 
         //
@@ -162,17 +175,6 @@ namespace WarehouseAgile.Controllers
         }
 
         //
-        // GET: /Offer/GetEquipments
-
-        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
-        public ActionResult GetEquipments()
-        {
-            EquipmentsModel model = new EquipmentsModel();
-
-            return PartialView("_EquipmentsSelect", model);
-        }
-
-        //
         // POST: /Offer/AddEquipment
 
         [HttpPost]
@@ -195,6 +197,30 @@ namespace WarehouseAgile.Controllers
             }
 
             return Content("OK");
+        }
+
+        //
+        // GET: /Offer/GetEquipmentDetails
+
+        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
+        public ActionResult GetEquipmentDetails()
+        {
+            int param;
+
+            if (int.TryParse(Request.QueryString["equipment"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Equipment equipment = (from e in context.Equipments
+                                           where e.Id == param
+                                           select e).FirstOrDefault();
+
+                    if (equipment != null)
+                        return Content(string.Format("Edycja {1}: <input type=\"hidden\" name=\"equipment-id\" value=\"{0}\"><input type=\"text\" name=\"equipment\" value=\"{1}\" /> <input type=\"submit\" value=\"Zapisz\" />", equipment.Id, equipment.Name));
+                }
+            }
+
+            return Content("Brak rekordu o wskazanym identyfikatorze");
         }
     }
 }

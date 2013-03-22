@@ -10,7 +10,7 @@
     {
         <div class="row-clean">
             <select name="make" id="models-make-select">
-                @Html.Action("GetMakes", "Offer")
+                @Html.Partial("_MakesSelect")
             </select>
         </div>
     }
@@ -37,7 +37,7 @@
     {
         <div class="row-clean">
             <select name="make" id="makes-select">
-                @Html.Action("GetMakes", "Offer")
+                @Html.Partial("_MakesSelect")
             </select>
         </div>
     }
@@ -63,12 +63,18 @@
 <div id="equipments-section">
     <div id="saveequipment-rsp"></div>
 
-    @using (Ajax.BeginForm("", "", new AjaxOptions() { UpdateTargetId = "-details", LoadingElementId = "loading3", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "equipments-form" }))
+    @using (Ajax.BeginForm("GetEquipmentDetails", "", new AjaxOptions() { UpdateTargetId = "equipment-details", LoadingElementId = "loading3", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "equipments-form" }))
     {
         <div class="row-clean">
             <select name="equipment" id="equipments-select">
-                @Html.Action("GetEquipments", "Offer")
+                @Html.Partial("_EquipmentsSelect");
             </select>
+        </div>
+    }
+
+    @using (Ajax.BeginForm("Save", "", new AjaxOptions() { OnSuccess = "saveEquipmentSuccess", OnFailure = "saveEquipmentError", LoadingElementId = "loading3", HttpMethod = "POST" }, new { id = "equipment-form" }))
+    {
+        <div class="row-clean" id="equipment-details">
         </div>
     }
 
