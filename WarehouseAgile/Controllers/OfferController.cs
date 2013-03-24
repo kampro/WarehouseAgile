@@ -17,88 +17,14 @@ namespace WarehouseAgile.Controllers
             return View();
         }
 
-        //
-        // GET: /Offer/GetModels
-
-        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
-        public PartialViewResult GetModels()
-        {
-            ModelsModel model = new ModelsModel();
-            int param;
-
-            if (int.TryParse(Request.QueryString["make"], out param))
-                model.FillModelsList(param);
-
-            return PartialView("_ModelsSelect", model);
-        }
+        #region Makes
 
         //
-        // GET: /Offer/GetModelDetails
+        // GET: /Offer/GetMakes
 
-        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
-        public PartialViewResult GetModelDetails()
+        public PartialViewResult GetMakes()
         {
-            ModelDetailsModel model = new ModelDetailsModel();
-            int param;
-
-            if (int.TryParse(Request.QueryString["model"], out param))
-                model.FillModel(param);
-
-            return PartialView("_ModelDetails", model);
-        }
-
-        //
-        // POST: /Offer/SaveModel
-
-        [HttpPost]
-        public ActionResult SaveModel()
-        {
-            int param;
-
-            if (int.TryParse(Request.Form["model-id"], out param))
-            {
-                using (AppDBEntities context = new AppDBEntities())
-                {
-                    Model model = (from m in context.Models
-                                   where m.Id == param
-                                   select m).First();
-
-                    model.Name = Request.Form["CurrentModel.Name"];
-                    model.Price = float.Parse(Request.Form["CurrentModel.Price"]);
-
-                    context.SaveChanges();
-                }
-            }
-
-            return Content("OK");
-        }
-
-        //
-        // POST: /Offer/AddModelEquipment
-
-        [HttpPost]
-        public ActionResult AddModelEquipment()
-        {
-            int param;
-            int param2;
-
-            if (int.TryParse(Request.Form["model-id"], out param) && int.TryParse(Request.Form["equipment"], out param2))
-            {
-                using (AppDBEntities context = new AppDBEntities())
-                {
-                    if ((from ep in context.EquipmentPrices
-                         where ep.Id_model == param && ep.Id_equipment == param2
-                         select ep).Any())
-                        throw new ApplicationException("Configuration already exists");
-                    else
-                    {
-                        context.EquipmentPrices.Add(new EquipmentPrice() { Id_model = param, Id_equipment = param2, Price = 0f });
-                        context.SaveChanges();
-                    }
-                }
-            }
-
-            return Content("OK");
+            return PartialView("_MakesSelect");
         }
 
         //
@@ -118,11 +44,15 @@ namespace WarehouseAgile.Controllers
                                  select m).FirstOrDefault();
 
                     if (make != null)
-                        return Content(string.Format("Edycja {1}: <input type=\"hidden\" name=\"make-id\" value=\"{0}\"><input type=\"text\" name=\"make\" value=\"{1}\" /> <input type=\"submit\" value=\"Zapisz\" />", make.Id, make.Name));
+                        return Content(string.Format("<h3>Edycja {1}</h3>" +
+                            "<div class=\"row-clean\"><a href=\"{2}\" rel=\"delete-make\" class=\"ui-state-default ui-corner-all icon-anchor\"><span class=\"ui-icon ui-icon-trash\"></span></a></div>" +
+                            "<input type=\"hidden\" name=\"make-id\" value=\"{0}\">" +
+                            "<div class=\"row-clean\">Nazwa: <input type=\"text\" name=\"make\" value=\"{1}\" /></div>" +
+                            "<div class=\"row-clean\"><input type=\"submit\" value=\"Zapisz\" /></div>", make.Id, make.Name, Url.Action("DeleteMake", "Offer", new { make = param })));
                 }
             }
 
-            return Content("Brak rekordu o wskazanym identyfikatorze");
+            return Content("<h3>Edycja</h3><div class=\"row-clean\">Brak rekordu o wskazanym identyfikatorze</div>");
         }
 
         //
@@ -138,7 +68,8 @@ namespace WarehouseAgile.Controllers
                     string make = Request.Form["make"];
 
                     if ((from m in context.Makes where m.Name == make select m).Any())
-                        throw new ApplicationException("Make already exists");
+                        //throw new ApplicationException("Make already exists");
+                        make = "aa";
                     else
                     {
                         context.Makes.Add(new Make() { Name = make });
@@ -175,6 +106,203 @@ namespace WarehouseAgile.Controllers
         }
 
         //
+        // GET: /Offer/DeleteMake
+
+        public ActionResult DeleteMake()
+        {
+            int param;
+
+            if (int.TryParse(Request.QueryString["make"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Make make = (from m in context.Makes
+                                 where m.Id == param
+                                 select m).First();
+
+                    context.Makes.Remove(make);
+                    context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
+        }
+
+        #endregion
+
+        #region Models
+
+        //
+        // GET: /Offer/GetModels
+
+        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
+        public PartialViewResult GetModels()
+        {
+            ModelsModel model = new ModelsModel();
+            int param;
+
+            if (int.TryParse(Request.QueryString["make"], out param))
+                model.FillModelsList(param);
+
+            return PartialView("_ModelsSelect", model);
+        }
+
+        //
+        // GET: /Offer/GetModelDetails
+
+        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
+        public PartialViewResult GetModelDetails()
+        {
+            ModelDetailsModel model = new ModelDetailsModel();
+            int param;
+
+            if (int.TryParse(Request.QueryString["model"], out param))
+                model.FillModel(param);
+
+            return PartialView("_ModelDetails", model);
+        }
+
+        //
+        // POST: /Offer/AddModelEquipment
+
+        [HttpPost]
+        public ActionResult AddModelEquipment()
+        {
+            int param;
+            int param2;
+
+            if (int.TryParse(Request.Form["model-id"], out param) && int.TryParse(Request.Form["equipment"], out param2))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    if ((from ep in context.EquipmentPrices
+                         where ep.Id_model == param && ep.Id_equipment == param2
+                         select ep).Any())
+                        throw new ApplicationException("Configuration already exists");
+                    else
+                    {
+                        context.EquipmentPrices.Add(new EquipmentPrice() { Id_model = param, Id_equipment = param2, Price = 0f });
+                        context.SaveChanges();
+                    }
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
+        // POST: /Offer/SaveModel
+
+        [HttpPost]
+        public ActionResult SaveModel()
+        {
+            int param;
+
+            if (int.TryParse(Request.Form["model-id"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Model model = (from m in context.Models
+                                   where m.Id == param
+                                   select m).First();
+
+                    model.Name = Request.Form["CurrentModel.Name"];
+                    model.Price = float.Parse(Request.Form["CurrentModel.Price"]);
+
+                    context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
+        // GET: /Offer/DeleteEquipmentModel
+
+        public ActionResult DeleteEquipmentModel()
+        {
+            int param;
+
+            if (int.TryParse(Request.QueryString["equipment"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    EquipmentPrice equipmentPrice = (from ep in context.EquipmentPrices
+                                                     where ep.Id == param
+                                                     select ep).First();
+
+                    context.EquipmentPrices.Remove(equipmentPrice);
+                    context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
+        // GET: /Offer/DeleteModel
+
+        public ActionResult DeleteModel()
+        {
+            int param;
+
+            if (int.TryParse(Request.QueryString["model"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Model model = (from m in context.Models
+                                   where m.Id == param
+                                   select m).First();
+
+                    context.Models.Remove(model);
+                    context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
+        }
+
+        #endregion
+
+        #region Equipments
+
+        //
+        // GET: /Offer/GetEquipments
+
+        public PartialViewResult GetEquipments()
+        {
+            return PartialView("_EquipmentsSelect");
+        }
+
+        //
+        // GET: /Offer/GetEquipmentDetails
+
+        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
+        public ActionResult GetEquipmentDetails()
+        {
+            int param;
+
+            if (int.TryParse(Request.QueryString["equipment"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Equipment equipment = (from e in context.Equipments
+                                           where e.Id == param
+                                           select e).FirstOrDefault();
+
+                    if (equipment != null)
+                        return Content(string.Format("<h3>Edycja {1}</h3>" +
+                            "<div class=\"row-clean\"><a href=\"{2}\" rel=\"delete-equipment\" class=\"ui-state-default ui-corner-all icon-anchor\"><span class=\"ui-icon ui-icon-trash\"></span></a></div>" +
+                            "<input type=\"hidden\" name=\"equipment-id\" value=\"{0}\">" +
+                            "<div class=\"row-clean\">Nazwa: <input type=\"text\" name=\"equipment\" value=\"{1}\" /></div>" +
+                            "<div class=\"row-clean\"><input type=\"submit\" value=\"Zapisz\" /></div>", equipment.Id, equipment.Name, Url.Action("DeleteEquipment", "Offer", new { equipment = param })));
+                }
+            }
+
+            return Content("Brak rekordu o wskazanym identyfikatorze");
+        }
+
+        //
         // POST: /Offer/AddEquipment
 
         [HttpPost]
@@ -200,10 +328,34 @@ namespace WarehouseAgile.Controllers
         }
 
         //
-        // GET: /Offer/GetEquipmentDetails
+        // POST: /Offer/SaveEquipment
 
-        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
-        public ActionResult GetEquipmentDetails()
+        [HttpPost]
+        public ActionResult SaveEquipment()
+        {
+            int param;
+
+            if (int.TryParse(Request.Form["equipment-id"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Equipment equipment = (from e in context.Equipments
+                                           where e.Id == param
+                                           select e).First();
+
+                    equipment.Name = Request.Form["equipment"];
+
+                    context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
+        // GET: /Offer/DeleteEquipment
+
+        public ActionResult DeleteEquipment()
         {
             int param;
 
@@ -213,14 +365,16 @@ namespace WarehouseAgile.Controllers
                 {
                     Equipment equipment = (from e in context.Equipments
                                            where e.Id == param
-                                           select e).FirstOrDefault();
+                                           select e).First();
 
-                    if (equipment != null)
-                        return Content(string.Format("Edycja {1}: <input type=\"hidden\" name=\"equipment-id\" value=\"{0}\"><input type=\"text\" name=\"equipment\" value=\"{1}\" /> <input type=\"submit\" value=\"Zapisz\" />", equipment.Id, equipment.Name));
+                    context.Equipments.Remove(equipment);
+                    context.SaveChanges();
                 }
             }
 
-            return Content("Brak rekordu o wskazanym identyfikatorze");
+            return Content("OK");
         }
+
+        #endregion
     }
 }
