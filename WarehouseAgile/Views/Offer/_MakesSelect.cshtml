@@ -1,9 +1,11 @@
 ﻿@model WarehouseAgile.Models.MakesModel
+@using WarehouseAgile.Models
 
-@if (Model != null)
-{
+@{
+    MakesModel model = new MakesModel();
+    
     @:<option value="0">>>> Marka <<<</option>
-    foreach (var m in Model.MakesList)
+    foreach (var m in model.MakesList)
     {
         <option value="@m.Id">@m.Name</option>
     }

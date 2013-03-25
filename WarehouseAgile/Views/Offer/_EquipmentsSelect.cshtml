@@ -1,0 +1,12 @@
+﻿@model WarehouseAgile.Models.EquipmentsModel
+@using WarehouseAgile.Models
+
+@{
+    EquipmentsModel model = new EquipmentsModel();
+    
+    @:<option value="0">>>> Wyposażenie <<<</option>
+    foreach (var m in model.EquipmentsList)
+    {
+        <option value="@m.Id">@m.Name</option>
+    }
+}

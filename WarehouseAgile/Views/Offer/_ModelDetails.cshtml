@@ -2,10 +2,12 @@
 
 <div id="savemodel-rsp"></div>
 <h3>Edycja modelu @Model.MakeName @Model.CurrentModel.Name</h3>
+<div class="row-clean"><a href="@Url.Action("DeleteModel", "Offer", new { model = Model.CurrentModel.Id })" rel="delete-model" class="ui-state-default ui-corner-all icon-anchor"><span class="ui-icon ui-icon-trash"></span></a></div>
 @using (Ajax.BeginForm("SaveModel", "", new AjaxOptions() { OnSuccess = "saveModelSuccess", OnFailure = "saveModelError", LoadingElementId = "loading", HttpMethod = "POST" }, new { id = "model-form" }))
 {
     Html.ValidationSummary(true);
-    @Html.Hidden("model-id", Model.CurrentModel.Id);
+    @Html.Hidden("model-id", Model.CurrentModel.Id, new { id = "model-id" });
+    @Html.Hidden("model-make-id", Model.CurrentModel.Id_make, new { id = "model-make-id" });
     <div class="row">
         <div class="column-a">Nazwa:</div>
         <div class="column-b">@Html.TextBoxFor(m => m.CurrentModel.Name) @Html.ValidationMessageFor(m => m.CurrentModel.Name)</div>
@@ -23,11 +25,17 @@
             <div class="row">
                 <div class="column-a">@(m.Name):</div>
                 <div class="column-b"> + @Html.TextBox(m.Id.ToString(), m.Price) zł</div>
-                <div class="column-c"><span class="ui-icon ui-icon-trash" style="display: inline-block;"></span></div>
+                <div class="column-c"><a href="@Url.Action("DeleteEquipmentModel", "Offer", new { equipment = m.Id })" rel="delete-equipment-model" class="ui-state-default ui-corner-all icon-anchor"><span class="ui-icon ui-icon-trash"></span></a></div>
             </div>
         }
     </div>
     <div><input type="submit" value="Zapisz" /></div>
 }
 
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@using (Ajax.BeginForm("AddModelEquipment", "", new AjaxOptions() { OnSuccess = "addModelEquipmentSuccess", OnFailure = "saveModelError", LoadingElementId = "loading", HttpMethod = "POST" }, new { id = "model-equipment-form" }))
+{
+    @Html.Hidden("model-id", Model.CurrentModel.Id);
+    <div class="row-clean">
+        Wyposażenie: <select name="equipment" id="equipments-model-select">@Html.Partial("_EquipmentsSelect", new ViewDataDictionary())</select> <input type="submit" value="Dodaj" />
+    </div>
+}

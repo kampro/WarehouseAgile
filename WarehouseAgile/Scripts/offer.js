@@ -13,6 +13,10 @@ $(document).ready(function () {
         $("#makes-form").submit();
     });
 
+    $("#equipments-select").change(function () {
+        $("#equipments-form").submit();
+    });
+
     $("#makes-section, #models-section, #equipments-section").hide();
     $("#makes-header").click(function () {
         showSection("#makes-section");
@@ -23,19 +27,108 @@ $(document).ready(function () {
     $("#equipments-header").click(function () {
         showSection("#equipments-section");
     });
+    $("#equipment-details").ajaxComplete(function () {
+        postAjax();
+    });
+
+    postAjax();
+});
+
+// Shared functions
+function postAjax() {
     $(".ui-state-default").hover(
 		function () { $(this).addClass("ui-state-hover"); },
 		function () { $(this).removeClass("ui-state-hover"); }
 	);
-});
+    deleteEquipmentModel();
+    deleteMake();
+    deleteEquipment();
+    deleteModel();
+}
+function showResponse(element, message) {
+    $(element).hide();
+    $(element).html(message);
+    $(element).fadeIn({ duration: 400, queue: false });
+    $(element).delay(3000).fadeOut({ duration: 400, queue: true });
+}
+function showSection(section) {
+    if ($(section).is(":hidden"))
+        $(section).fadeIn(400);
+    else
+        $(section).fadeOut(400);
+}
 
+// Models functions
+function addModelSuccess() {
+    $.ajax({
+        url: "/Offer/GetModels",
+        data: {
+            "make": $("#model-make-id").val()
+        },
+        dataType: "html",
+        success: function (data) {
+            $("#models-select").html(data);
+            saveModelSuccess();
+        }
+    });
+}
 function saveModelSuccess() {
     showResponse("#savemodel-rsp", "<div class=\"success\">Dane zostały zapisane</div>");
 }
 function saveModelError() {
     showResponse("#savemodel-rsp", "<div class=\"error\">Wystąpił błąd</div>");
 }
+function addModelEquipmentSuccess() {
+    $.ajax({
+        url: "/Offer/GetModelDetails",
+        data: {
+            "model": $("#model-id").val()
+        },
+        dataType: "html",
+        success: function (data) {
+            $("#model-details").html(data);
+            saveModelSuccess();
+        }
+    });
+}
+function deleteEquipmentModel() {
+    $("a[rel=\"delete-equipment-model\"]").click(function () {
+        if (confirm("Potwierdź usunięcie wyposażenia z danego modelu")) {
+            $.ajax({
+                url: $(this).attr("href"),
+                dataType: "html",
+                success: function () {
+                    addModelEquipmentSuccess();
+                },
+                error: function () {
+                    saveModelError();
+                }
+            });
+        }
 
+        return false;
+    });
+}
+function deleteModel() {
+    $("a[rel=\"delete-model\"]").click(function () {
+        if (confirm("Potwierdź usunięcie modelu oraz skojarzonych z nim obiektów - usuwanie modelu jest NIEZALECANE (zostaną usunięte skojarzone z nim zamówienia)")) {
+            $.ajax({
+                url: $(this).attr("href"),
+                dataType: "html",
+                success: function () {
+                    addModelSuccess();
+                },
+                error: function () {
+                    saveModelError();
+                }
+            });
+        }
+
+        return false;
+    });
+}
+
+// Makes functions
 function addMakeSuccess() {
     $.ajax({
         url: "/Offer/GetMakes",
@@ -56,16 +149,73 @@ function reloadMakes(data) {
     $("#makes-select").html(data);
     $("#models-make-select").html(data);
 }
-
-function showResponse(element, message) {
-    $(element).hide();
-    $(element).html(message);
-    $(element).fadeIn({ duration: 400, queue: false });
-    $(element).delay(3000).fadeOut({ duration: 400, queue: true });
+function addMakeError() {
+    showResponse("#savemake-rsp", "<div class=\"error\">Wystąpił błąd</div>");
 }
-function showSection(section) {
-    if ($(section).is(":hidden"))
-        $(section).fadeIn(400);
-    else
-        $(section).fadeOut(400);
+function saveMakeError() {
+    showResponse("#savemake-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+function deleteMake() {
+    $("a[rel=\"delete-make\"]").click(function () {
+        if (confirm("Potwierdź usunięcie marki oraz skojarzonych z nią obiektów")) {
+            $.ajax({
+                url: $(this).attr("href"),
+                dataType: "html",
+                success: function () {
+                    addMakeSuccess();
+                },
+                error: function () {
+                    saveMakeError();
+                }
+            });
+        }
+
+        return false;
+    });
+}
+
+// Equipments functions
+function addEquipmentSuccess() {
+    $.ajax({
+        url: "/Offer/GetEquipments",
+        dataType: "html",
+        success: function (data) {
+            reloadEquipments(data);
+            showResponse("#saveequipment-rsp", "<div class=\"success\">Dane zostały zapisane</div>");
+        },
+        error: function () {
+            showResponse("#saveequipment-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+        }
+    });
+}
+function saveEquipmentSuccess() {
+    addEquipmentSuccess();
+}
+function reloadEquipments(data) {
+    $("#equipments-select").html(data);
+    $("#equipments-model-select").html(data);
+}
+function addEquipmentError() {
+    showResponse("#saveequipment-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+function saveEquipmentError() {
+    showResponse("#saveequipment-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+function deleteEquipment() {
+    $("a[rel=\"delete-equipment\"]").click(function () {
+        if (confirm("Potwierdź usunięcie wyposażenia oraz skojarzonych z nim obiektów")) {
+            $.ajax({
+                url: $(this).attr("href"),
+                dataType: "html",
+                success: function () {
+                    addEquipmentSuccess();
+                },
+                error: function () {
+                    saveEquipmentError();
+                }
+            });
+        }
+
+        return false;
+    });
 }
