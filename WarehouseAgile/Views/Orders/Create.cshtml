@@ -1,0 +1,82 @@
+﻿@model WarehouseAgile.Models.OrderViewModel
+<h2>Nowe zamówienie</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Zamówienie</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CarMake)
+        </div>
+        <div class="editor-field">
+            <select id="MakesSelection">
+                @Html.Action("GetMakes", "Offer")
+            </select>
+        </div>
+
+        <div class="editor-field">
+            <select id="ModelsSelection">
+                @Html.Action("GetModels", "Offer", new { id = "", make = 1 })
+            </select>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Branch)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Branch)
+            @Html.ValidationMessageFor(model => model.Branch)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Color)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Color)
+            @Html.ValidationMessageFor(model => model.Color)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ModelPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ModelPrice)
+            @Html.ValidationMessageFor(model => model.ModelPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EquipmentPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EquipmentPrice)
+            @Html.ValidationMessageFor(model => model.EquipmentPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Status)
+            @Html.ValidationMessageFor(model => model.Status)
+        </div>
+
+        <p>
+            <input type="submit" value="Zapisz" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Powrót do listy zamówień", "Index")
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#modelsForm").submit();
+    });
+</script>

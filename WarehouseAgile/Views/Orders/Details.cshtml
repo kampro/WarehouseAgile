@@ -1,0 +1,27 @@
+﻿@model WarehouseAgile.Models.OrderViewModel
+
+<h2>Szczegóły zamówienia</h2>
+
+@if (Model != null)
+{
+    @Html.Partial("_ReadOnlyDetails");
+    
+    <div class="display-label">
+        @Html.LabelFor(model => model.Status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Status)
+    </div>
+    
+    <p>
+        @Html.ActionLink("Edycja", "Edit", new { orderId = Model.Id, statusId = Model.StatusId })
+    </p>
+}
+else
+{
+    <div class="error">Brak szczegółów zamówienia</div>
+}
+
+<p>
+    @Html.ActionLink("Powrót do listy zamówień", "Index")
+</p>

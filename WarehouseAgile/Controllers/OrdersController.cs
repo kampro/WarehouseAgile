@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WarehouseAgile.Models;
 
@@ -9,27 +7,56 @@ namespace WarehouseAgile.Controllers
 {
     public class OrdersController : Controller
     {
-        //
-        // GET: /Orders/
+        #region Actions
 
         public ActionResult Index()
         {
-            List<OrderViewModel> models;
+            var models = new List<OrderViewModel>();
 
             using (var context = new AppDBEntities())
-                models = context.Orders.Select(order => new OrderViewModel
-                {
-                    Branch = order.Seller.Branch.Name,
-                    Car = string.Concat(order.EquipmentPrice.Model.Make.Name, " ", order.EquipmentPrice.Model.Name),
-                    Color = order.Color.Name,
-                    OrderDate = order.Date,
-                    Price = order.EquipmentPrice.Model.Price + order.EquipmentPrice.Price,
-                    Status = order.State.Name
-                })
-                .ToList();
+                context.Orders
+                    .ToList()
+                    .ForEach(order => models.Add(OrderViewModel.CreateFromEntity(order)));
 
             return View(models);
         }
 
+        public ActionResult Edit(int orderId, int statusId)
+        {
+            using (var context = new AppDBEntities())
+                return View(OrderViewModel.CreateFromEntity(context.Orders
+                    .Where(order => order.Id.Equals(orderId))
+                    .FirstOrDefault()));
+        }
+
+        public ActionResult Details(int id)
+        {
+            using (var context = new AppDBEntities())
+                return View(OrderViewModel.CreateFromEntity(context.Orders
+                    .Where(order => order.Id.Equals(id))
+                    .FirstOrDefault()));
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public static IEnumerable<SelectListItem> GetStatuses()
+        {
+            using (var context = new AppDBEntities())
+                foreach (var status in context.States)
+                    yield return new SelectListItem
+                    {
+                        Text = status.Name,
+                        Value = status.Id.ToString()
+                    };
+        }
+
+        #endregion
     }
 }

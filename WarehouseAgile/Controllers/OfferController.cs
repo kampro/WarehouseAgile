@@ -32,13 +32,15 @@ namespace WarehouseAgile.Controllers
         // GET: /Offer/GetModels
 
         //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
-        public PartialViewResult GetModels()
+        public PartialViewResult GetModels(int make)
         {
             ModelsModel model = new ModelsModel();
             int param;
 
-            if (int.TryParse(Request.QueryString["make"], out param))
-                model.FillModelsList(param);
+            if (!int.TryParse(Request.QueryString["make"], out param))
+                param = make;
+            
+            model.FillModelsList(param);
 
             return PartialView("_ModelsSelect", model);
         }
@@ -46,7 +48,6 @@ namespace WarehouseAgile.Controllers
         //
         // GET: /Offer/GetModelDetails
 
-        [ChildActionOnly]
         public PartialViewResult GetModelDetails()
         {
             ModelDetailsModel model = new ModelDetailsModel();

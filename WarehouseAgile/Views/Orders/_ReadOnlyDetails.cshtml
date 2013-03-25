@@ -1,0 +1,39 @@
+﻿@model WarehouseAgile.Models.OrderViewModel
+<fieldset>
+    <legend>Szczegóły zamówienia</legend>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.OrderDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderDate)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.CarFullName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CarFullName)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Branch)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Branch)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Color)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Color)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.TotalPrice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalPrice)
+    </div>
+</fieldset>
