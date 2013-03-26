@@ -135,7 +135,6 @@ namespace WarehouseAgile.Controllers
         //
         // GET: /Offer/GetModels
 
-        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
         public PartialViewResult GetModels(int make)
         {
             ModelsModel model = new ModelsModel();
@@ -278,7 +277,6 @@ namespace WarehouseAgile.Controllers
         //
         // GET: /Offer/GetEquipmentDetails
 
-        //[ChildActionOnly] - the method is used with AJAX, it can't be ChildAction
         public ActionResult GetEquipmentDetails()
         {
             int param;
@@ -300,7 +298,7 @@ namespace WarehouseAgile.Controllers
                 }
             }
 
-            return Content("Brak rekordu o wskazanym identyfikatorze");
+            return Content("<h3>Edycja</h3><div class=\"row-clean\">Brak rekordu o wskazanym identyfikatorze</div>");
         }
 
         //

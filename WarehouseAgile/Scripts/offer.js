@@ -27,23 +27,45 @@ $(document).ready(function () {
     $("#equipments-header").click(function () {
         showSection("#equipments-section");
     });
-    $("#equipment-details").ajaxComplete(function () {
-        postAjax();
-    });
 
-    postAjax();
-});
-
-// Shared functions
-function postAjax() {
     $(".ui-state-default").hover(
 		function () { $(this).addClass("ui-state-hover"); },
 		function () { $(this).removeClass("ui-state-hover"); }
 	);
-    deleteEquipmentModel();
-    deleteMake();
-    deleteEquipment();
-    deleteModel();
+    
+    //Event bubbling
+    $("body").click(function (e) {
+        var target = e.target;
+
+        if (isClickContained("a[rel=\"delete-equipment-model\"]", target)) {
+            return deleteEquipmentModel(chooseTarget(target));
+        }
+        else if (isClickContained("a[rel=\"delete-equipment\"]", target)) {
+            return deleteEquipment(chooseTarget(target));
+        }
+        else if (isClickContained("a[rel=\"delete-model\"]", target)) {
+            return deleteModel(chooseTarget(target));
+        }
+        else if (isClickContained("a[rel=\"delete-make\"]", target)) {
+            return deleteMake(chooseTarget(target));
+        }
+
+        return true;
+    });
+});
+
+// Shared functions
+function isClickContained(element, clicked) {
+    if ($(clicked).parent().is(element) || $(clicked).is(element))
+        return true;
+    else
+        return false;
+}
+function chooseTarget(element) {
+    if ($(element).is("a"))
+        return $(element);
+    else
+        return $(element).parent();
 }
 function showResponse(element, message) {
     $(element).hide();
@@ -91,41 +113,37 @@ function addModelEquipmentSuccess() {
         }
     });
 }
-function deleteEquipmentModel() {
-    $("a[rel=\"delete-equipment-model\"]").click(function () {
-        if (confirm("Potwierdź usunięcie wyposażenia z danego modelu")) {
-            $.ajax({
-                url: $(this).attr("href"),
-                dataType: "html",
-                success: function () {
-                    addModelEquipmentSuccess();
-                },
-                error: function () {
-                    saveModelError();
-                }
-            });
-        }
+function deleteEquipmentModel(e) {
+    if (confirm("Potwierdź usunięcie wyposażenia z danego modelu - usuwanie wyposażenia jest NIEZALECANE (zostaną usunięte skojarzone z nim zamówienia)")) {
+        $.ajax({
+            url: $(e).attr("href"),
+            dataType: "html",
+            success: function () {
+                addModelEquipmentSuccess();
+            },
+            error: function () {
+                saveModelError();
+            }
+        });
+    }
 
-        return false;
-    });
+    return false;
 }
-function deleteModel() {
-    $("a[rel=\"delete-model\"]").click(function () {
-        if (confirm("Potwierdź usunięcie modelu oraz skojarzonych z nim obiektów - usuwanie modelu jest NIEZALECANE (zostaną usunięte skojarzone z nim zamówienia)")) {
-            $.ajax({
-                url: $(this).attr("href"),
-                dataType: "html",
-                success: function () {
-                    addModelSuccess();
-                },
-                error: function () {
-                    saveModelError();
-                }
-            });
-        }
+function deleteModel(e) {
+    if (confirm("Potwierdź usunięcie modelu oraz skojarzonych z nim obiektów - usuwanie modelu jest NIEZALECANE (zostaną usunięte skojarzone z nim zamówienia)")) {
+        $.ajax({
+            url: $(e).attr("href"),
+            dataType: "html",
+            success: function () {
+                addModelSuccess();
+            },
+            error: function () {
+                saveModelError();
+            }
+        });
+    }
 
-        return false;
-    });
+    return false;
 }
 
 // Makes functions
@@ -155,23 +173,21 @@ function addMakeError() {
 function saveMakeError() {
     showResponse("#savemake-rsp", "<div class=\"error\">Wystąpił błąd</div>");
 }
-function deleteMake() {
-    $("a[rel=\"delete-make\"]").click(function () {
-        if (confirm("Potwierdź usunięcie marki oraz skojarzonych z nią obiektów")) {
-            $.ajax({
-                url: $(this).attr("href"),
-                dataType: "html",
-                success: function () {
-                    addMakeSuccess();
-                },
-                error: function () {
-                    saveMakeError();
-                }
-            });
-        }
+function deleteMake(e) {
+    if (confirm("Potwierdź usunięcie marki oraz skojarzonych z nią obiektów - usuwanie marki jest NIEZALECANE (zostaną usunięte skojarzone z nią modele i zamówienia)")) {
+        $.ajax({
+            url: $(e).attr("href"),
+            dataType: "html",
+            success: function () {
+                addMakeSuccess();
+            },
+            error: function () {
+                saveMakeError();
+            }
+        });
+    }
 
-        return false;
-    });
+    return false;
 }
 
 // Equipments functions
@@ -201,21 +217,19 @@ function addEquipmentError() {
 function saveEquipmentError() {
     showResponse("#saveequipment-rsp", "<div class=\"error\">Wystąpił błąd</div>");
 }
-function deleteEquipment() {
-    $("a[rel=\"delete-equipment\"]").click(function () {
-        if (confirm("Potwierdź usunięcie wyposażenia oraz skojarzonych z nim obiektów")) {
-            $.ajax({
-                url: $(this).attr("href"),
-                dataType: "html",
-                success: function () {
-                    addEquipmentSuccess();
-                },
-                error: function () {
-                    saveEquipmentError();
-                }
-            });
-        }
+function deleteEquipment(e) {
+    if (confirm("Potwierdź usunięcie wyposażenia oraz skojarzonych z nim obiektów - usuwanie wyposażenia jest NIEZALECANE (zostaną usunięte skojarzone z nim zamówienia)")) {
+        $.ajax({
+            url: $(e).attr("href"),
+            dataType: "html",
+            success: function () {
+                addEquipmentSuccess();
+            },
+            error: function () {
+                saveEquipmentError();
+            }
+        });
+    }
 
-        return false;
-    });
+    return false;
 }
