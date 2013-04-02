@@ -1,32 +1,32 @@
 ﻿@using WarehouseAgile.Controllers;
 
-@model WarehouseAgile.Models.OrderViewModel
-
+@model WarehouseAgile.Models.OrderModel
 <h2>Edycja zamówienia</h2>
 
 @if (Model != null)
 {
-
-    using (Html.BeginForm())
+    using (Html.BeginForm("SaveStatus", "Orders", FormMethod.Post))
     {
         @Html.Partial("_ReadOnlyDetails")
         
+        @Html.EditorFor(model => model.Id, string.Empty, "orderId")
+    
         <div class="editor-label">
             @Html.LabelFor(model => model.Status)
         </div>
         
         <div class="editor-field">
-            @Html.DropDownList("ddlStatus", OrdersController.GetStatuses())
+            @Html.DropDownList("statusId", OrdersController.GetStatuses())
         </div>
 
-    <p>
-        <input type="submit" value="Save" />
-    </p>
+        <p>
+            <input type="submit" value="Zapisz" />
+        </p>
     }
 }
 else
 {
-    <div class="error">Brak zamówienia</div>
+    <div class="error">Wystąpił błąd podczas odczytu zamówienia.</div>
 }
 
 <div>

@@ -1,9 +1,11 @@
-﻿@model WarehouseAgile.Models.OrderViewModel
+﻿@using WarehouseAgile.Controllers;
+
+@model WarehouseAgile.Models.OrderModel
 <h2>Nowe zamówienie</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("SaveNewOrder", "Orders", FormMethod.Post))
 {
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
     <fieldset>
         <legend>Zamówienie</legend>
 
@@ -16,50 +18,41 @@
             </select>
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CarModel)
+        </div>
         <div class="editor-field">
             <select id="ModelsSelection">
-                @Html.Action("GetModels", "Offer", new { make = 1 })
+                <option value="0">>>>Model<<<</option>
             </select>
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Branch)
+            @Html.LabelFor(model => model.EquipmentType)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Branch)
-            @Html.ValidationMessageFor(model => model.Branch)
+            <select id="EquipmentsSelection" name="equipmentPriceId">
+                <option value="0">>>>Wyposażenie<<<</option>
+            </select>
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Color)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Color)
-            @Html.ValidationMessageFor(model => model.Color)
+            @Html.DropDownList("colorId", OrdersController.GetColors())
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ModelPrice)
+            @Html.LabelFor(model => model.Customer)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ModelPrice)
-            @Html.ValidationMessageFor(model => model.ModelPrice)
+            @Html.DropDownList("customerId", OrdersController.GetCustomers())
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.EquipmentPrice)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EquipmentPrice)
-            @Html.ValidationMessageFor(model => model.EquipmentPrice)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Status)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Status)
-            @Html.ValidationMessageFor(model => model.Status)
+            @Html.Label("Cena")
+            <span id="OrderPriceField">0 zł</span>
         </div>
 
         <p>
@@ -74,9 +67,4 @@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-<script type="text/javascript">
-    $(function () {
-        $("#modelsForm").submit();
-    });
-</script>
+<script src="@Url.Content("~/Scripts/Order.js")" type="text/javascript"></script>

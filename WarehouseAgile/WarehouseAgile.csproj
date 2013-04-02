@@ -148,7 +148,7 @@
     <Compile Include="Models\LoginModels.cs" />
     <Compile Include="Models\MainModels.cs" />
     <Compile Include="Models\OfferModels.cs" />
-    <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -272,6 +272,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\offer.js" />
+    <Content Include="Scripts\Order.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

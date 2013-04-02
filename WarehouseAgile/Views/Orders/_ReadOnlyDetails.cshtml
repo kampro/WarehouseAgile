@@ -1,4 +1,4 @@
-﻿@model WarehouseAgile.Models.OrderViewModel
+﻿@model WarehouseAgile.Models.OrderModel
 <fieldset>
     <legend>Szczegóły zamówienia</legend>
 
@@ -35,5 +35,19 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.TotalPrice)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Customer)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Customer)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Seller)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Seller)
     </div>
 </fieldset>

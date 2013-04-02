@@ -1,4 +1,4 @@
-﻿@model WarehouseAgile.Models.OrderViewModel
+﻿@model WarehouseAgile.Models.OrderModel
 
 <h2>Szczegóły zamówienia</h2>
 
@@ -14,7 +14,7 @@
     </div>
     
     <p>
-        @Html.ActionLink("Edycja", "Edit", new { orderId = Model.Id, statusId = Model.StatusId })
+        @Html.ActionLink("Edycja", "Edit", new { Id = Model.Id })
     </p>
 }
 else
