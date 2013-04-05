@@ -86,6 +86,37 @@
     <div id="loading3"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
 </div>
 
+<h2><span id="colors-header" class="ui-state-default ui-corner-all icon-anchor"><span class="ui-icon ui-icon-circle-triangle-s"></span></span>&nbsp;Kolory</h2>
+<div id="colors-section">
+    <div id="savecolor-rsp"></div>
+
+    @using (Ajax.BeginForm("GetColorDetails", "", new AjaxOptions() { UpdateTargetId = "color-details", LoadingElementId = "loading4", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "colors-form" }))
+    {
+        <div class="row-clean">
+            <select name="color" id="colors-select">
+                @Html.Partial("_ColorsSelect");
+            </select>
+        </div>
+    }
+
+    @using (Ajax.BeginForm("SaveColor", "", new AjaxOptions() { OnSuccess = "saveColorSuccess", OnFailure = "saveColorError", LoadingElementId = "loading4", HttpMethod = "POST" }, new { id = "color-form" }))
+    {
+        <div class="row-clean" id="color-details">
+        </div>
+    }
+
+    @using (Ajax.BeginForm("AddColor", "", new AjaxOptions() { OnSuccess = "addColorSuccess", OnFailure = "addColorError", LoadingElementId = "loading4", HttpMethod = "POST" }, new { id = "colors-add-form" }))
+    {
+        <div class="row-clean">
+            <input type="text" name="color" />
+            <input type="text" name="price" />
+            <input type="submit" value="Dodaj" />
+        </div>
+    }
+
+    <div id="loading4"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
+</div>
+
 <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>

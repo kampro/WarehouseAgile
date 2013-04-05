@@ -140,7 +140,7 @@ div.row-clean {
     clear: both;
 }
 
-div#loading, div#loading2, div#loading3 {
+div#loading, div#loading2, div#loading3, div#loading4 {
     display: none;
     margin: 6px 2px 6px 2px;
 }

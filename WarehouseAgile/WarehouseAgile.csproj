@@ -313,6 +313,7 @@
     <Content Include="Views\Offer\_EquipmentsSelect.cshtml" />
     <Content Include="Views\Stats\Index.cshtml" />
     <Content Include="Views\Shared\_UnderConstruction.cshtml" />
+    <Content Include="Views\Offer\_ColorsSelect.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

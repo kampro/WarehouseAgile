@@ -1,0 +1,12 @@
+﻿@model WarehouseAgile.Models.ColorsModel
+@using WarehouseAgile.Models
+
+@{
+    ColorsModel model = new ColorsModel();
+    
+    @:<option value="0">>>> Kolory <<<</option>
+    foreach (var m in model.ColorsList)
+    {
+        <option value="@m.Id">@m.Name</option>
+    }
+}

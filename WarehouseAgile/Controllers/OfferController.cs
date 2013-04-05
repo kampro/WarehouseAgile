@@ -142,7 +142,7 @@ namespace WarehouseAgile.Controllers
 
             if (!int.TryParse(Request.QueryString["make"], out param))
                 param = make;
-            
+
             model.FillModelsList(param);
 
             return PartialView("_ModelsSelect", model);
@@ -367,6 +367,125 @@ namespace WarehouseAgile.Controllers
                                            select e).First();
 
                     context.Equipments.Remove(equipment);
+                    context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
+        }
+
+        #endregion
+
+        #region Colors
+
+        //
+        // GET: /Offer/GetColors
+
+        public PartialViewResult GetColors()
+        {
+            return PartialView("_ColorsSelect");
+        }
+
+        //
+        // GET: /Offer/GetColorDetails
+
+        public ActionResult GetColorDetails()
+        {
+            int param;
+
+            if (int.TryParse(Request.QueryString["color"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Color color = (from c in context.Colors
+                                   where c.Id == param
+                                   select c).FirstOrDefault();
+
+                    if (color != null)
+                        return Content(string.Format("<h3>Edycja {1}</h3>" +
+                            "<div class=\"row-clean\"><a href=\"{2}\" rel=\"delete-color\" class=\"ui-state-default ui-corner-all icon-anchor\"><span class=\"ui-icon ui-icon-trash\"></span></a></div>" +
+                            "<input type=\"hidden\" name=\"color-id\" value=\"{0}\">" +
+                            "<div class=\"row-clean\">Nazwa: <input type=\"text\" name=\"color\" value=\"{1}\" /></div>" +
+                            "<div class=\"row-clean\">Cena: <input type=\"text\" name=\"price\" value=\"{3}\" /> zł</div>" +
+                            "<div class=\"row-clean\"><input type=\"submit\" value=\"Zapisz\" /></div>", color.Id, color.Name, Url.Action("DeleteColor", "Offer", new { color = param }), color.Price));
+                }
+            }
+
+            return Content("<h3>Edycja</h3><div class=\"row-clean\">Brak rekordu o wskazanym identyfikatorze</div>");
+        }
+
+        //
+        // POST: /Offer/AddColor
+
+        [HttpPost]
+        public ActionResult AddColor()
+        {
+            if (Request.Form["color"].Length > 0)
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    string color = Request.Form["color"];
+
+                    if ((from c in context.Colors where c.Name == color select c).Any())
+                        throw new ApplicationException("Color already exists");
+                    else
+                    {
+                        float price;
+
+                        if (!float.TryParse(Request.Form["price"], out price))
+                            price = 0f;
+
+                        context.Colors.Add(new Color() { Name = color, Price = price });
+                        context.SaveChanges();
+                    }
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
+        // POST: /Offer/SaveColor
+
+        [HttpPost]
+        public ActionResult SaveColor()
+        {
+            int param;
+
+            if (int.TryParse(Request.Form["color-id"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Color color = (from c in context.Colors
+                                   where c.Id == param
+                                   select c).First();
+
+                    color.Name = Request.Form["color"];
+                    color.Price = float.Parse(Request.Form["price"]);
+
+                    context.SaveChanges();
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
+        // GET: /Offer/DeleteColor
+
+        public ActionResult DeleteColor()
+        {
+            int param;
+
+            if (int.TryParse(Request.QueryString["color"], out param))
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    Color color = (from c in context.Colors
+                                   where c.Id == param
+                                   select c).First();
+
+                    context.Colors.Remove(color);
                     context.SaveChanges();
                 }
             }

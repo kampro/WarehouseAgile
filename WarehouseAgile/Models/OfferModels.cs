@@ -168,4 +168,39 @@ namespace WarehouseAgile.Models
 
         #endregion
     }
+
+    public class ColorsModel
+    {
+        #region Fields
+
+        private List<Color> colors;
+
+        #endregion
+
+        #region Properties
+
+        public List<Color> ColorsList
+        {
+            get { return this.colors; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        public ColorsModel()
+        {
+            this.FillColorsList();
+        }
+
+        private void FillColorsList()
+        {
+            using (AppDBEntities context = new AppDBEntities())
+            {
+                this.colors = context.Colors.OrderBy(x => x.Name).ToList(); ;
+            }
+        }
+
+        #endregion
+    }
 }

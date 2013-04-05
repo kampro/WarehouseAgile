@@ -17,7 +17,11 @@ $(document).ready(function () {
         $("#equipments-form").submit();
     });
 
-    $("#makes-section, #models-section, #equipments-section").hide();
+    $("#colors-select").change(function () {
+        $("#colors-form").submit();
+    });
+
+    $("#makes-section, #models-section, #equipments-section, #colors-section").hide();
     $("#makes-header").click(function () {
         showSection("#makes-section");
     });
@@ -26,6 +30,9 @@ $(document).ready(function () {
     });
     $("#equipments-header").click(function () {
         showSection("#equipments-section");
+    });
+    $("#colors-header").click(function () {
+        showSection("#colors-section");
     });
 
     $(".ui-state-default").hover(
@@ -48,6 +55,9 @@ $(document).ready(function () {
         }
         else if (isClickContained("a[rel=\"delete-make\"]", target)) {
             return deleteMake(chooseTarget(target));
+        }
+        else if (isClickContained("a[rel=\"delete-color\"]", target)) {
+            return deleteColor(chooseTarget(target));
         }
 
         return true;
@@ -227,6 +237,46 @@ function deleteEquipment(e) {
             },
             error: function () {
                 saveEquipmentError();
+            }
+        });
+    }
+
+    return false;
+}
+
+// Colors functions
+function addColorSuccess() {
+    $.ajax({
+        url: "/Offer/GetColors",
+        dataType: "html",
+        success: function (data) {
+            $("#colors-select").html(data);
+            showResponse("#savecolor-rsp", "<div class=\"success\">Dane zostały zapisane</div>");
+        },
+        error: function () {
+            showResponse("#savecolor-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+        }
+    });
+}
+function saveColorSuccess() {
+    addColorSuccess();
+}
+function addColorError() {
+    showResponse("#savecolor-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+function saveColorError() {
+    showResponse("#savecolor-rsp", "<div class=\"error\">Wystąpił błąd</div>");
+}
+function deleteColor(e) {
+    if (confirm("Potwierdź usunięcie koloru oraz skojarzonych z nim obiektów - usuwanie koloru jest NIEZALECANE (zostaną usunięte skojarzone z nim zamówienia)")) {
+        $.ajax({
+            url: $(e).attr("href"),
+            dataType: "html",
+            success: function () {
+                addColorSuccess();
+            },
+            error: function () {
+                saveColorError();
             }
         });
     }
