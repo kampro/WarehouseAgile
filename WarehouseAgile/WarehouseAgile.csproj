@@ -299,21 +299,21 @@
     <Content Include="Views\Offer\Index.cshtml" />
     <Content Include="Views\Main\_Menu.cshtml" />
     <Content Include="Views\Customers\Add.cshtml" />
-    <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Offer\_ModelsSelect.cshtml" />
     <Content Include="Views\Offer\_ModelDetails.cshtml" />
     <Content Include="Views\Offer\_MakesSelect.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\_ReadOnlyDetails.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Customers\_Add.cshtml" />
     <Content Include="Views\Offer\_EquipmentsSelect.cshtml" />
     <Content Include="Views\Stats\Index.cshtml" />
     <Content Include="Views\Shared\_UnderConstruction.cshtml" />
     <Content Include="Views\Offer\_ColorsSelect.cshtml" />
+    <Content Include="Views\Customers\_Add.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -78,6 +78,8 @@ namespace WarehouseAgile.Controllers
                 c.Name = customer.Name;
                 c.Surname = customer.Surname;
                 c.Address = customer.Address;
+                c.City = customer.City;
+                db.SaveChanges();
             }
             return RedirectToAction("Index", "Customers");
         }
