@@ -9,7 +9,7 @@ namespace WarehouseAgile.Controllers
 {
     public class CustomersController : Controller
     {
-        #region methods
+        #region AllIn
         //
         // GET: /Customers/
 
@@ -37,15 +37,22 @@ namespace WarehouseAgile.Controllers
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
             }
-            
-			return RedirectToAction("Index", "Customers");
+
+            return RedirectToAction("Index", "Customers");
         }
 
         public ActionResult Delete(int id)
         {
             using (AppDBEntities db = new AppDBEntities())
             {
+                var orders = from a in db.Orders
+                        where a.Id_customer == id
+                        select a;
                 Customer customer = db.Customers.Find(id);
+                foreach (var item in orders)
+                {
+                    db.Orders.Remove(item);
+                }
                 db.Customers.Remove(customer);
                 db.SaveChanges();
             }
