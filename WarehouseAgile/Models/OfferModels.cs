@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.Entity;
 using WarehouseAgile;
+using System.ComponentModel.DataAnnotations;
 
 namespace WarehouseAgile.Models
 {
@@ -85,6 +86,8 @@ namespace WarehouseAgile.Models
         {
             public int Id { get; set; }
             public string Name { get; set; }
+            [Range(0, float.MaxValue, ErrorMessage = "Wartość musi być liczbą nieujemną")]
+            [Display(Name = "Cena")]
             public float Price { get; set; }
         }
 

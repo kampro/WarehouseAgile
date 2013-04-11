@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WarehouseAgile.Models;
+using System.Web.Mvc.Html;
 
 namespace WarehouseAgile.Controllers
 {
@@ -208,6 +209,16 @@ namespace WarehouseAgile.Controllers
 
                     model.Name = Request.Form["CurrentModel.Name"];
                     model.Price = float.Parse(Request.Form["CurrentModel.Price"]);
+
+                    var equipmentPrices = (from ep in context.EquipmentPrices
+                                           where ep.Id_model == param
+                                           select ep);
+                    int epI;
+                    foreach (EquipmentPrice ep in equipmentPrices)
+                    {
+                        epI = int.Parse(Request.Form[string.Format("epid{0}", ep.Id)]);
+                        ep.Price = int.Parse(Request.Form[string.Format("EquipmentPricesList[{0}].Price", epI)]);
+                    }
 
                     context.SaveChanges();
                 }

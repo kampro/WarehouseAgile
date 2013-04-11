@@ -11,6 +11,7 @@ namespace WarehouseAgile
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Make
     {
@@ -20,6 +21,8 @@ namespace WarehouseAgile
         }
     
         public int Id { get; set; }
+        [Required]
+        [Display(Name = "Nazwa")]
         public string Name { get; set; }
     
         public virtual ICollection<Model> Models { get; set; }
