@@ -9,6 +9,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WarehouseAgile.Models
 {
+    public class OfferModel
+    {
+        public Make dummyMake;
+        public Model dumyModel;
+        public Equipment dummyEquipment;
+        public Color dummyColor;
+    }
+
     public class MakesModel
     {
         #region Fields

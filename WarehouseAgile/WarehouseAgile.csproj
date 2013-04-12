@@ -314,6 +314,9 @@
     <Content Include="Views\Customers\_Add.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Offer\_ColorDetails.cshtml" />
+    <Content Include="Views\Offer\_EquipmentDetails.cshtml" />
+    <Content Include="Views\Offer\_MakeDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

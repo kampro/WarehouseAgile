@@ -147,16 +147,7 @@ div#loading, div#loading2, div#loading3, div#loading4 {
 
 #model-details {
     overflow: hidden;
-    margin: 10px 0px 10px 0px;
 }
-
-    #model-details .head {
-        margin: 0px 0px 6px 0px;
-    }
-
-        #model-details .head input {
-            width: 80px;
-        }
 
     #model-details .group {
         overflow: hidden;
@@ -164,35 +155,43 @@ div#loading, div#loading2, div#loading3, div#loading4 {
         padding: 0px 0px 0px 10px;
     }
 
-    #model-details .row {
+    /*#model-details */.row {
         overflow: hidden;
-        width: 350px;
+        width: 410px;
         background: #efeff2;
         padding: 4px;
     }
-    #model-details .row:hover {
+    /*#model-details */.row:hover {
         background: #fefefe;
     }
 
-        #model-details .row .column-a {
+        /*#model-details */.row .column-a {
             overflow: hidden;
             margin: 0px;
             float: left;
             width: 100px;
         }
 
-        #model-details .row .column-b {
+        /*#model-details */.row .column-b {
             overflow: hidden;
             margin: 0px;
             float: left;
-            width: 120px;
+            width: 180px;
         }
         
-            #model-details .row .column-b input {
-                width: 80px;
+            /*#model-details */.row .column-b input {
+                width: 140px;
             }
 
-        #model-details .row .column-c {
+            .row .column-b select {
+                width: 140px;
+            }
+
+            .row .column-b input[type="submit"] {
+                width: 60px;
+            }
+
+        /*#model-details */.row .column-c {
             overflow: hidden;
             margin: 0px;
             float: left;

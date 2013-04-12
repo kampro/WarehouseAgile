@@ -24,6 +24,8 @@ namespace WarehouseAgile
         [Required]
         [Display(Name = "Nazwa")]
         public string Name { get; set; }
+        [Range(0, float.MaxValue, ErrorMessage = "Wartoœæ musi byæ liczb¹ nieujemn¹")]
+        [Display(Name = "Cena")]
         public Nullable<float> Price { get; set; }
     
         public virtual ICollection<Order> Orders { get; set; }

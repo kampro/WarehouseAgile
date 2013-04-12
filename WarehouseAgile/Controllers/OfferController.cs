@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WarehouseAgile.Models;
-using System.Web.Mvc.Html;
 
 namespace WarehouseAgile.Controllers
 {
@@ -45,11 +44,7 @@ namespace WarehouseAgile.Controllers
                                  select m).FirstOrDefault();
 
                     if (make != null)
-                        return Content(string.Format("<h3>Edycja {1}</h3>" +
-                            "<div class=\"row-clean\"><a href=\"{2}\" rel=\"delete-make\" class=\"ui-state-default ui-corner-all icon-anchor\"><span class=\"ui-icon ui-icon-trash\"></span></a></div>" +
-                            "<input type=\"hidden\" name=\"make-id\" value=\"{0}\">" +
-                            "<div class=\"row-clean\">Nazwa: <input type=\"text\" name=\"make\" value=\"{1}\" /></div>" +
-                            "<div class=\"row-clean\"><input type=\"submit\" value=\"Zapisz\" /></div>", make.Id, make.Name, Url.Action("DeleteMake", "Offer", new { make = param })));
+                        return PartialView("_MakeDetails", make);
                 }
             }
 
@@ -62,15 +57,14 @@ namespace WarehouseAgile.Controllers
         [HttpPost]
         public ActionResult AddMake()
         {
-            if (Request.Form["make"].Length > 0)
+            if (Request.Form["dummyMake.Name"].Length > 0)
             {
                 using (AppDBEntities context = new AppDBEntities())
                 {
-                    string make = Request.Form["make"];
+                    string make = Request.Form["dummyMake.Name"];
 
                     if ((from m in context.Makes where m.Name == make select m).Any())
-                        //throw new ApplicationException("Make already exists");
-                        make = "aa";
+                        throw new ApplicationException("Make already exists");
                     else
                     {
                         context.Makes.Add(new Make() { Name = make });
@@ -98,7 +92,7 @@ namespace WarehouseAgile.Controllers
                                  where m.Id == param
                                  select m).First();
 
-                    make.Name = Request.Form["make"];
+                    make.Name = Request.Form["Name"];
                     context.SaveChanges();
                 }
             }
@@ -301,11 +295,7 @@ namespace WarehouseAgile.Controllers
                                            select e).FirstOrDefault();
 
                     if (equipment != null)
-                        return Content(string.Format("<h3>Edycja {1}</h3>" +
-                            "<div class=\"row-clean\"><a href=\"{2}\" rel=\"delete-equipment\" class=\"ui-state-default ui-corner-all icon-anchor\"><span class=\"ui-icon ui-icon-trash\"></span></a></div>" +
-                            "<input type=\"hidden\" name=\"equipment-id\" value=\"{0}\">" +
-                            "<div class=\"row-clean\">Nazwa: <input type=\"text\" name=\"equipment\" value=\"{1}\" /></div>" +
-                            "<div class=\"row-clean\"><input type=\"submit\" value=\"Zapisz\" /></div>", equipment.Id, equipment.Name, Url.Action("DeleteEquipment", "Offer", new { equipment = param })));
+                        return PartialView("_EquipmentDetails", equipment);
                 }
             }
 
@@ -318,11 +308,11 @@ namespace WarehouseAgile.Controllers
         [HttpPost]
         public ActionResult AddEquipment()
         {
-            if (Request.Form["equipment"].Length > 0)
+            if (Request.Form["dummyEquipment.Name"].Length > 0)
             {
                 using (AppDBEntities context = new AppDBEntities())
                 {
-                    string equipment = Request.Form["equipment"];
+                    string equipment = Request.Form["dummyEquipment.Name"];
 
                     if ((from e in context.Equipments where e.Name == equipment select e).Any())
                         throw new ApplicationException("Equipment already exists");
@@ -353,7 +343,7 @@ namespace WarehouseAgile.Controllers
                                            where e.Id == param
                                            select e).First();
 
-                    equipment.Name = Request.Form["equipment"];
+                    equipment.Name = Request.Form["Name"];
 
                     context.SaveChanges();
                 }
@@ -413,12 +403,7 @@ namespace WarehouseAgile.Controllers
                                    select c).FirstOrDefault();
 
                     if (color != null)
-                        return Content(string.Format("<h3>Edycja {1}</h3>" +
-                            "<div class=\"row-clean\"><a href=\"{2}\" rel=\"delete-color\" class=\"ui-state-default ui-corner-all icon-anchor\"><span class=\"ui-icon ui-icon-trash\"></span></a></div>" +
-                            "<input type=\"hidden\" name=\"color-id\" value=\"{0}\">" +
-                            "<div class=\"row-clean\">Nazwa: <input type=\"text\" name=\"color\" value=\"{1}\" /></div>" +
-                            "<div class=\"row-clean\">Cena: <input type=\"text\" name=\"price\" value=\"{3}\" /> zł</div>" +
-                            "<div class=\"row-clean\"><input type=\"submit\" value=\"Zapisz\" /></div>", color.Id, color.Name, Url.Action("DeleteColor", "Offer", new { color = param }), color.Price));
+                        return PartialView("_ColorDetails", color);
                 }
             }
 
@@ -431,11 +416,11 @@ namespace WarehouseAgile.Controllers
         [HttpPost]
         public ActionResult AddColor()
         {
-            if (Request.Form["color"].Length > 0)
+            if (Request.Form["dummyColor.Name"].Length > 0)
             {
                 using (AppDBEntities context = new AppDBEntities())
                 {
-                    string color = Request.Form["color"];
+                    string color = Request.Form["dummyColor.Name"];
 
                     if ((from c in context.Colors where c.Name == color select c).Any())
                         throw new ApplicationException("Color already exists");
@@ -443,7 +428,7 @@ namespace WarehouseAgile.Controllers
                     {
                         float price;
 
-                        if (!float.TryParse(Request.Form["price"], out price))
+                        if (!float.TryParse(Request.Form["dummyColor.Price"], out price))
                             price = 0f;
 
                         context.Colors.Add(new Color() { Name = color, Price = price });
@@ -471,8 +456,8 @@ namespace WarehouseAgile.Controllers
                                    where c.Id == param
                                    select c).First();
 
-                    color.Name = Request.Form["color"];
-                    color.Price = float.Parse(Request.Form["price"]);
+                    color.Name = Request.Form["Name"];
+                    color.Price = float.Parse(Request.Form["Price"]);
 
                     context.SaveChanges();
                 }

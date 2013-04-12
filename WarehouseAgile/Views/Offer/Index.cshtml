@@ -1,29 +1,38 @@
-﻿
+﻿@model WarehouseAgile.Models.OfferModel
+
 <h1>Oferta</h1>
 
 <h2><span id="models-header" class="ui-state-default ui-corner-all icon-anchor"><span class="ui-icon ui-icon-circle-triangle-s"></span></span>&nbsp;Modele</h2>
 <div id="models-section">
+    <div id="savemodel-rsp"></div>
+
     @using (Ajax.BeginForm("GetModels", "", new AjaxOptions() { UpdateTargetId = "models-select", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "models-make-form" }))
     {
-        <div class="row-clean">
-            <select name="make" id="models-make-select">
-                @Html.Partial("_MakesSelect")
-            </select>
+        <div class="row">
+            <div class="column-a">&nbsp;</div>
+            <div class="column-b">
+                <select name="make" id="models-make-select">
+                    @Html.Partial("_MakesSelect")
+                </select>
+            </div>
         </div>
     }
 
     @using (Ajax.BeginForm("GetModelDetails", "", new AjaxOptions() { UpdateTargetId = "model-details", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "models-form" }))
     {
-        <div class="row-clean">
-            <select name="model" id="models-select">
-                <option value="0">>>> Model <<<</option>
-            </select>
+        <div class="row">
+            <div class="column-a">Edytuj:</div>
+            <div class="column-b">
+                <select name="model" id="models-select">
+                    <option value="0">Wybierz markę</option>
+                </select>
+            </div>
         </div>
     }
 
-    <div id="loading"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
-
     <div id="model-details"></div>
+
+    <div id="loading"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
 </div>
  
 <h2><span id="makes-header" class="ui-state-default ui-corner-all icon-anchor"><span class="ui-icon ui-icon-circle-triangle-s"></span></span>&nbsp;Producenci</h2>
@@ -32,24 +41,31 @@
 
     @using (Ajax.BeginForm("GetMakeDetails", "", new AjaxOptions() { UpdateTargetId = "make-details", LoadingElementId = "loading2", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "makes-form" }))
     {
-        <div class="row-clean">
-            <select name="make" id="makes-select">
-                @Html.Partial("_MakesSelect")
-            </select>
+        <div class="row">
+            <div class="column-a">Edytuj:</div>
+            <div class="column-b">
+                <select name="make" id="makes-select">
+                    @Html.Partial("_MakesSelect")
+                </select>
+            </div>
         </div>
     }
 
-    @using (Ajax.BeginForm("SaveMake", "", new AjaxOptions() { OnSuccess = "saveMakeSuccess", OnFailure = "saveMakeError", LoadingElementId = "loading2", HttpMethod = "POST" }, new { id = "make-form" }))
-    {
-        <div id="make-details">
-        </div>
-    }
+    <div id="make-details">
+    </div>
+
+    <h3>Dodawanie producenta</h3>
 
     @using (Ajax.BeginForm("AddMake", "", new AjaxOptions() { OnSuccess = "addMakeSuccess", OnFailure = "addMakeError", LoadingElementId = "loading2", HttpMethod = "POST" }, new { id = "makes-add-form" }))
     {
-        <div class="row-clean">
-            <input type="text" name="make" />
-            <input type="submit" value="Dodaj" />
+        Html.ValidationSummary(true);
+        <div class="row">
+            <div class="column-a">Nazwa:</div>
+            <div class="column-b">@Html.TextBoxFor(m => m.dummyMake.Name) @Html.ValidationMessageFor(m => m.dummyMake.Name, "pole nie może być puste")</div>
+        </div>
+        <div class="row">
+            <div class="column-a">&nbsp;</div>
+            <div class="column-b"><input type="submit" value="Dodaj" /></div>
         </div>
     }
 
@@ -62,24 +78,31 @@
 
     @using (Ajax.BeginForm("GetEquipmentDetails", "", new AjaxOptions() { UpdateTargetId = "equipment-details", LoadingElementId = "loading3", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "equipments-form" }))
     {
-        <div class="row-clean">
-            <select name="equipment" id="equipments-select">
-                @Html.Partial("_EquipmentsSelect");
-            </select>
+        <div class="row">
+            <div class="column-a">Edytuj:</div>
+            <div class="column-b">
+                <select name="equipment" id="equipments-select">
+                    @Html.Partial("_EquipmentsSelect");
+                </select>
+            </div>
         </div>
     }
 
-    @using (Ajax.BeginForm("SaveEquipment", "", new AjaxOptions() { OnSuccess = "saveEquipmentSuccess", OnFailure = "saveEquipmentError", LoadingElementId = "loading3", HttpMethod = "POST" }, new { id = "equipment-form" }))
-    {
-        <div class="row-clean" id="equipment-details">
-        </div>
-    }
+    <div class="row-clean" id="equipment-details">
+    </div>
+
+    <h3>Dodawanie wyposażenia</h3>
 
     @using (Ajax.BeginForm("AddEquipment", "", new AjaxOptions() { OnSuccess = "addEquipmentSuccess", OnFailure = "addEquipmentError", LoadingElementId = "loading3", HttpMethod = "POST" }, new { id = "equipments-add-form" }))
     {
-        <div class="row-clean">
-            <input type="text" name="equipment" />
-            <input type="submit" value="Dodaj" />
+        Html.ValidationSummary(true);
+        <div class="row">
+            <div class="column-a">Nazwa:</div>
+            <div class="column-b">@Html.TextBoxFor(m => m.dummyEquipment.Name) @Html.ValidationMessageFor(m => m.dummyEquipment.Name, "pole nie może być puste")</div>
+        </div>
+        <div class="row">
+            <div class="column-a">&nbsp;</div>
+            <div class="column-b"><input type="submit" value="Dodaj" /></div>
         </div>
     }
 
@@ -92,25 +115,35 @@
 
     @using (Ajax.BeginForm("GetColorDetails", "", new AjaxOptions() { UpdateTargetId = "color-details", LoadingElementId = "loading4", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "colors-form" }))
     {
-        <div class="row-clean">
-            <select name="color" id="colors-select">
-                @Html.Partial("_ColorsSelect");
-            </select>
+        <div class="row">
+            <div class="column-a">Edytuj:</div>
+            <div class="column-b">
+                <select name="color" id="colors-select">
+                    @Html.Partial("_ColorsSelect");
+                </select>
+            </div>
         </div>
     }
+    
+    <div class="row-clean" id="color-details">
+    </div>
 
-    @using (Ajax.BeginForm("SaveColor", "", new AjaxOptions() { OnSuccess = "saveColorSuccess", OnFailure = "saveColorError", LoadingElementId = "loading4", HttpMethod = "POST" }, new { id = "color-form" }))
-    {
-        <div class="row-clean" id="color-details">
-        </div>
-    }
+    <h3>Dodawanie koloru</h3>
 
     @using (Ajax.BeginForm("AddColor", "", new AjaxOptions() { OnSuccess = "addColorSuccess", OnFailure = "addColorError", LoadingElementId = "loading4", HttpMethod = "POST" }, new { id = "colors-add-form" }))
     {
-        <div class="row-clean">
-            <input type="text" name="color" />
-            <input type="text" name="price" />
-            <input type="submit" value="Dodaj" />
+        Html.ValidationSummary(true);
+        <div class="row">
+            <div class="column-a">Nazwa:</div>
+            <div class="column-b">@Html.TextBoxFor(m => m.dummyColor.Name) @Html.ValidationMessageFor(m => m.dummyColor.Name, "pole nie może być puste")</div>
+        </div>
+        <div class="row">
+            <div class="column-a">Cena:</div>
+            <div class="column-b">@Html.TextBoxFor(m => m.dummyColor.Price) zł @Html.ValidationMessageFor(m => m.dummyColor.Price, "pole musi być liczbą nieujemną")</div>
+        </div>
+        <div class="row">
+            <div class="column-a">&nbsp;</div>
+            <div class="column-b"><input type="submit" value="Dodaj" /></div>
         </div>
     }
 
@@ -119,5 +152,6 @@
 
 <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery-ui-1.10.2.custom.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/offer.js")" type="text/javascript"></script>
