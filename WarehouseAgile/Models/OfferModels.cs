@@ -7,6 +7,7 @@ using System.Data.Entity;
 using WarehouseAgile;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace WarehouseAgile.Models
 {
     public class OfferModel

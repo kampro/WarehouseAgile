@@ -1,0 +1,63 @@
+﻿@model WarehouseAgile.Models.SellerModel
+
+<h1>Sprzedawcy</h1>
+
+@using (Ajax.BeginForm("GetSellerDetails", "", new AjaxOptions() { UpdateTargetId = "seller-details", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "sellers-form" }))
+{
+    <div class="row">
+        <div class="column-a">Edytuj:</div>
+        <div class="column-b">
+            <select name="seller" id="sellers-select">
+                @Html.Partial("_SellersSelect")
+            </select>
+        </div>
+    </div>
+}
+
+<div id="seller-details"></div>
+
+<div id="loading"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
+
+<h3>Dodawanie sprzedawcy</h3>
+<div id="saveseller-rsp"></div>
+
+@using (Ajax.BeginForm("AddSeller", "", new AjaxOptions() { OnSuccess = "addSellerSuccess", OnFailure = "addSellerError", LoadingElementId = "loading2", HttpMethod = "POST" }, new { id = "sellers-add-form" }))
+{
+    Html.ValidationSummary(true);
+    <div class="row">
+        <div class="column-a">Login:</div>
+        <div class="column-b">@Html.TextBoxFor(m => m.Username) @Html.ValidationMessageFor(m => m.Username, "pole musi mieć min. 3 znaki")</div>
+    </div>
+    <div class="row">
+        <div class="column-a">Hasło:</div>
+        <div class="column-b">@Html.TextBoxFor(m => m.Password) @Html.ValidationMessageFor(m => m.Password, "pole musi mieć min. 8 znaków")</div>
+    </div>
+    <div class="row">
+        <div class="column-a">Imię:</div>
+        <div class="column-b">@Html.TextBoxFor(m => m.Name) @Html.ValidationMessageFor(m => m.Name, "pole nie może być puste")</div>
+    </div>
+    <div class="row">
+        <div class="column-a">Nazwisko:</div>
+        <div class="column-b">@Html.TextBoxFor(m => m.Surname) @Html.ValidationMessageFor(m => m.Surname, "pole nie może być puste")</div>
+    </div>
+    <div class="row">
+        <div class="column-a">Oddział:</div>
+        <div class="column-b">
+            <select name="branch" id="branches-select">
+                @Html.Partial("_BranchesSelect")
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-a">&nbsp;</div>
+        <div class="column-b"><input type="submit" value="Dodaj" /></div>
+    </div>
+}
+
+<div id="loading2"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
+
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.10.2.custom.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/sellers.js")" type="text/javascript"></script>

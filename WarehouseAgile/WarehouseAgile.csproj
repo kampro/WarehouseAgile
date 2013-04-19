@@ -99,6 +99,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aspnet_Applications.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Membership.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Paths.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_PersonalizationAllUsers.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_PersonalizationPerUser.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Profile.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Roles.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_SchemaVersions.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_Users.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="aspnet_WebEvent_Events.cs">
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Branch.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -106,6 +136,7 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\SellersController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\OfferController.cs" />
@@ -141,6 +172,21 @@
     <Compile Include="Make.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MembershipModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MembershipModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MembershipModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MembershipModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MembershipModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MembershipModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Model.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -149,6 +195,7 @@
     <Compile Include="Models\MainModels.cs" />
     <Compile Include="Models\OfferModels.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\SellersModels.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -261,6 +308,23 @@
       <DependentUpon>DBModel.edmx</DependentUpon>
       <LastGenOutput>DBModel.cs</LastGenOutput>
     </Content>
+    <EntityDeploy Include="MembershipModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MembershipModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="MembershipModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MembershipModel.edmx</DependentUpon>
+      <LastGenOutput>MembershipModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MembershipModel.edmx.diagram">
+      <DependentUpon>MembershipModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="MembershipModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MembershipModel.edmx</DependentUpon>
+      <LastGenOutput>MembershipModel.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -273,6 +337,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\offer.js" />
     <Content Include="Scripts\Order.js" />
+    <Content Include="Scripts\sellers.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -317,6 +382,9 @@
     <Content Include="Views\Offer\_ColorDetails.cshtml" />
     <Content Include="Views\Offer\_EquipmentDetails.cshtml" />
     <Content Include="Views\Offer\_MakeDetails.cshtml" />
+    <Content Include="Views\Sellers\Index.cshtml" />
+    <Content Include="Views\Sellers\_SellersSelect.cshtml" />
+    <Content Include="Views\Sellers\_BranchesSelect.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

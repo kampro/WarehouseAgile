@@ -1,0 +1,12 @@
+﻿@model WarehouseAgile.Models.SellersModel
+@using WarehouseAgile.Models
+
+@{
+    SellersModel model = new SellersModel();
+    
+    @:<option value="0">>>> Sprzedawcy <<<</option>
+    foreach (var m in model.UsersList)
+    {
+        <option value="@m.UserId">@m.UserName</option>
+    }
+}

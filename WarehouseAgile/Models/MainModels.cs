@@ -32,6 +32,7 @@ namespace WarehouseAgile.Models
             this.menu.Add(new string[] { "Klienci", "Index", "Customers" });
             this.menu.Add(new string[] { "Oferta", "Index", "Offer" });
             this.menu.Add(new string[] { "Statystyki", "Index", "Stats" });
+            this.menu.Add(new string[] { "Sprzedawcy", "Index", "Sellers" });
         }
 
         #endregion

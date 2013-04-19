@@ -1,0 +1,11 @@
+﻿@model WarehouseAgile.Models.BranchesModel
+@using WarehouseAgile.Models
+
+@{
+    BranchesModel model = new BranchesModel();
+    
+    foreach (var m in model.BranchesList)
+    {
+        <option value="@m.Id">@m.Name (@m.Address)</option>
+    }
+}
