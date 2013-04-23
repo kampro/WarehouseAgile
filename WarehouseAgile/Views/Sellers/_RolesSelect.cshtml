@@ -1,0 +1,16 @@
+﻿@model WarehouseAgile.Models.RolesModel
+@using WarehouseAgile.Models
+
+@{
+    RolesModel model = new RolesModel();
+    
+    foreach (var m in model.RolesList)
+    {
+        <option value="@m.RoleId"
+        @if(m.RoleId == new Guid("818a7a14-269d-4115-9f26-ac09a92f0b50"))
+        {
+            @: selected="selected"
+        }
+        >@m.RoleName</option>
+    }
+}

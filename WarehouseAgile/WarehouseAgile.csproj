@@ -385,6 +385,8 @@
     <Content Include="Views\Sellers\Index.cshtml" />
     <Content Include="Views\Sellers\_SellersSelect.cshtml" />
     <Content Include="Views\Sellers\_BranchesSelect.cshtml" />
+    <Content Include="Views\Sellers\_RolesSelect.cshtml" />
+    <Content Include="Views\Sellers\_SellerDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

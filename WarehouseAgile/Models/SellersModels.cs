@@ -11,7 +11,7 @@ namespace WarehouseAgile.Models
 {
     public class SellerModel
     {
-        //public Guid UserId { get; set; }
+        public Guid UserId { get; set; }
         [Required]
         [MinLength(3)]
         public string Username { get; set; }
@@ -89,6 +89,41 @@ namespace WarehouseAgile.Models
             using (AppDBEntities context = new AppDBEntities())
             {
                 this.branches = context.Branches.OrderBy(x => x.Name).ToList();
+            }
+        }
+
+        #endregion
+    }
+
+    public class RolesModel
+    {
+        #region Fields
+
+        private List<aspnet_Roles> roles;
+
+        #endregion
+
+        #region Properties
+
+        public List<aspnet_Roles> RolesList
+        {
+            get { return this.roles; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        public RolesModel()
+        {
+            this.FillRolesList();
+        }
+
+        private void FillRolesList()
+        {
+            using (MembershipDBEntities context = new MembershipDBEntities())
+            {
+                this.roles = context.aspnet_Roles.OrderBy(x => x.RoleName).ToList();
             }
         }
 

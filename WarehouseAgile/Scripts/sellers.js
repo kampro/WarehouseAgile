@@ -2,8 +2,8 @@
 /// <reference path="jquery-ui-1.10.2.custom.min.js" />
 
 $(document).ready(function () {
-    $("#makes-select").change(function () {
-        $("#makes-form").submit();
+    $("#sellers-select").change(function () {
+        $("#sellers-form").submit();
     });
 
     $(".ui-state-default").hover(
@@ -12,11 +12,12 @@ $(document).ready(function () {
 	);
 
     //Event bubbling
-    $("body").click(function (e) {
-        var target = e.target;
+    $("body").on("click", "a", function (e) {
+        var obj = $(e.currentTarget); // === $(this)
+        var attrib = obj.attr("rel");
 
-        if (isClickContained("a[rel=\"delete-equipment-model\"]", target)) {
-            return deleteEquipmentModel(chooseTarget(target));
+        if (attrib === "delete-seller") {
+            return deleteSeller(obj);
         }
 
         return true;
@@ -24,18 +25,6 @@ $(document).ready(function () {
 });
 
 // Shared functions
-function isClickContained(element, clicked) {
-    if ($(clicked).parent().is(element) || $(clicked).is(element))
-        return true;
-    else
-        return false;
-}
-function chooseTarget(element) {
-    if ($(element).is("a"))
-        return $(element);
-    else
-        return $(element).parent();
-}
 function showResponse(element, message) {
     $(element).hide();
     $(element).html(message);
@@ -58,7 +47,7 @@ function addSellerSuccess() {
     });
 }
 function saveSellerSuccess() {
-    addColorSuccess();
+    addSellerSuccess();
 }
 function addSellerError() {
     showResponse("#saveseller-rsp", "<div class=\"error\">Wystąpił błąd</div>");
@@ -66,16 +55,16 @@ function addSellerError() {
 function saveSellerError() {
     showResponse("#saveseller-rsp", "<div class=\"error\">Wystąpił błąd</div>");
 }
-function deleteColor(e) {
-    if (confirm("Potwierdź usunięcie koloru oraz skojarzonych z nim obiektów - usuwanie koloru jest NIEZALECANE (zostaną usunięte skojarzone z nim zamówienia)")) {
+function deleteSeller(e) {
+    if (confirm("Potwierdź usunięcie sprzedawcy oraz skojarzonych z nim obiektów")) {
         $.ajax({
             url: $(e).attr("href"),
             dataType: "html",
             success: function () {
-                addColorSuccess();
+                addSellerSuccess();
             },
             error: function () {
-                saveColorError();
+                saveSellerError();
             }
         });
     }

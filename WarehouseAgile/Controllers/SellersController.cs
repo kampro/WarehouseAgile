@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using WarehouseAgile.Models;
 
 namespace WarehouseAgile.Controllers
 {
@@ -17,10 +18,16 @@ namespace WarehouseAgile.Controllers
             return View();
         }
 
+        //
+        // GET: /Sellers/GetSellers
+
         public PartialViewResult GetSellers()
         {
             return PartialView("_SellersSelect");
         }
+
+        //
+        // POST: /Sellers/AddSeller
 
         [HttpPost]
         public ActionResult AddSeller()
@@ -31,17 +38,18 @@ namespace WarehouseAgile.Controllers
                 && Request.Form["Password"].Length > 7
                 && Request.Form["Name"].Length > 0
                 && Request.Form["Surname"].Length > 0)
-                Membership.CreateUser(Request.Form["Username"], Request.Form["Password"], "empty@empty", "Empty question", "Empty answer", true, out mcs);
+                Membership.CreateUser(Request.Form["Username"], Request.Form["Password"], Request.Form["Username"]+"@empty", "Empty question", "Empty answer", true, out mcs);
 
             if (mcs != MembershipCreateStatus.Success)
                 throw new ApplicationException("Error");
             else
             {
-                Guid guid = new Guid("818a7a14-269d-4115-9f26-ac09a92f0b50");
+                // Seller RoleId : 818a7a14-269d-4115-9f26-ac09a92f0b50
+                Guid guid = new Guid(Request.Form["role"]);
 
                 using (MembershipDBEntities context = new MembershipDBEntities())
                 {
-                    string username = Request.Form["username"];
+                    string username = Request.Form["Username"];
 
                     var user = (from u in context.aspnet_Users
                                 where u.UserName == username
@@ -63,7 +71,7 @@ namespace WarehouseAgile.Controllers
                     Seller seller = new Seller();
                     seller.Id_user = guid;
                     seller.Name = Request.Form["Name"];
-                    seller.Surname = Request.Form["surname"];
+                    seller.Surname = Request.Form["Surname"];
                     seller.Id_branch = int.Parse(Request.Form["branch"]);
 
                     context.Sellers.Add(seller);
@@ -75,24 +83,122 @@ namespace WarehouseAgile.Controllers
             return Content("OK");
         }
 
+        //
+        // GET: /Sellers/GetSellerDetails
+
         public ActionResult GetSellerDetails()
         {
-            int param;
+            Guid guid = new Guid(Request.QueryString["seller"]);
 
-            if (int.TryParse(Request.QueryString["make"], out param))
+            using (AppDBEntities context = new AppDBEntities())
             {
-                using (AppDBEntities context = new AppDBEntities())
-                {
-                    Make make = (from m in context.Makes
-                                 where m.Id == param
-                                 select m).FirstOrDefault();
+                Seller seller = (from s in context.Sellers
+                                 where s.Id_user == guid
+                                 select s).FirstOrDefault();
 
-                    if (make != null)
-                        return PartialView("_MakeDetails", make);
+                SellerModel model = new SellerModel();
+                model.UserId = (Guid)seller.Id_user;
+                model.Name = seller.Name;
+                model.Surname = seller.Surname;
+
+                using (MembershipDBEntities context2 = new MembershipDBEntities())
+                {
+                    var user = (from s in context2.aspnet_Users
+                                where s.UserId == guid
+                                select s).FirstOrDefault();
+
+                    model.Username = user.UserName;
                 }
+
+                if (seller != null)
+                    return PartialView("_SellerDetails", model);
             }
 
             return Content("<h3>Edycja</h3><div class=\"row-clean\">Brak rekordu o wskazanym identyfikatorze</div>");
+        }
+
+        //
+        // POST: /Sellers/SaveSeller
+
+        [HttpPost]
+        public ActionResult SaveSeller()
+        {
+            Guid guid = new Guid(Request.Form["seller-id"]);
+
+            using (MembershipDBEntities context = new MembershipDBEntities())
+            {
+                string username = Request.Form["username"];
+                string oldUsername = (from u in context.aspnet_Users where u.UserId == guid select u.UserName).First();
+
+                if (username != oldUsername && (from u in context.aspnet_Users where u.UserName == username select u).Any())
+                    throw new ApplicationException("User already exists");
+                else
+                {
+
+                    var user = (from u in context.aspnet_Users
+                                where u.UserId == guid
+                                select u).First();
+
+                    user.UserName = username;
+                    user.LoweredUserName = username.ToLower();
+
+                    Guid roleGuid = new Guid(Request.Form["role"]);
+
+                    var role = (from r in context.aspnet_Roles
+                                where r.RoleId == roleGuid
+                                select r).First();
+
+                    user.aspnet_Roles.Clear();
+                    user.aspnet_Roles.Add(role);
+
+                    context.SaveChanges();
+                }
+            }
+
+            using (AppDBEntities context = new AppDBEntities())
+            {
+                Seller seller = (from s in context.Sellers
+                                 where s.Id_user == guid
+                                 select s).First();
+
+                seller.Name = Request.Form["Name"];
+                seller.Surname = Request.Form["Surname"];
+                seller.Id_branch = int.Parse(Request.Form["branch"]);
+
+                context.SaveChanges();
+            }
+
+            return Content("OK");
+        }
+
+        //
+        // GET: /Sellers/DeleteSeller
+
+        public ActionResult DeleteSeller()
+        {
+            Guid guid = new Guid(Request.QueryString["seller"]);
+
+            using (MembershipDBEntities context = new MembershipDBEntities())
+            {
+                var user = (from u in context.aspnet_Users
+                            where u.UserId == guid
+                            select u).First();
+
+                Membership.DeleteUser(user.UserName);
+            }
+            
+            using (AppDBEntities context = new AppDBEntities())
+            {
+                Seller seller = (from s in context.Sellers
+                                 where s.Id_user == guid
+                                 select s).First();
+
+                context.Sellers.Remove(seller);
+
+                context.SaveChanges();
+            }
+
+            return Content("OK");
         }
 
     }

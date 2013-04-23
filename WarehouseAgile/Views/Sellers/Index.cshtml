@@ -2,6 +2,8 @@
 
 <h1>Sprzedawcy</h1>
 
+<div id="saveseller-rsp"></div>
+
 @using (Ajax.BeginForm("GetSellerDetails", "", new AjaxOptions() { UpdateTargetId = "seller-details", LoadingElementId = "loading", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { id = "sellers-form" }))
 {
     <div class="row">
@@ -19,7 +21,6 @@
 <div id="loading"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
 
 <h3>Dodawanie sprzedawcy</h3>
-<div id="saveseller-rsp"></div>
 
 @using (Ajax.BeginForm("AddSeller", "", new AjaxOptions() { OnSuccess = "addSellerSuccess", OnFailure = "addSellerError", LoadingElementId = "loading2", HttpMethod = "POST" }, new { id = "sellers-add-form" }))
 {
@@ -30,7 +31,7 @@
     </div>
     <div class="row">
         <div class="column-a">Hasło:</div>
-        <div class="column-b">@Html.TextBoxFor(m => m.Password) @Html.ValidationMessageFor(m => m.Password, "pole musi mieć min. 8 znaków")</div>
+        <div class="column-b">@Html.PasswordFor(m => m.Password) @Html.ValidationMessageFor(m => m.Password, "pole musi mieć min. 8 znaków")</div>
     </div>
     <div class="row">
         <div class="column-a">Imię:</div>
@@ -45,6 +46,14 @@
         <div class="column-b">
             <select name="branch" id="branches-select">
                 @Html.Partial("_BranchesSelect")
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-a">Rola:</div>
+        <div class="column-b">
+            <select name="role" id="roles-select">
+                @Html.Partial("_RolesSelect")
             </select>
         </div>
     </div>

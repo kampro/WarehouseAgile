@@ -41,23 +41,24 @@ $(document).ready(function () {
 	);
     
     //Event bubbling
-    $("body").click(function (e) {
-        var target = e.target;
+    $("body").on("click", "a", function (e) {
+        var obj = $(e.currentTarget); // === $(this)
+        var attrib = obj.attr("rel");
 
-        if (isClickContained("a[rel=\"delete-equipment-model\"]", target)) {
-            return deleteEquipmentModel(chooseTarget(target));
+        if (attrib === "delete-equipment-model") {
+            return deleteEquipmentModel(obj);
         }
-        else if (isClickContained("a[rel=\"delete-equipment\"]", target)) {
-            return deleteEquipment(chooseTarget(target));
+        else if (attrib === "delete-equipment") {
+            return deleteEquipment(obj);
         }
-        else if (isClickContained("a[rel=\"delete-model\"]", target)) {
-            return deleteModel(chooseTarget(target));
+        else if (attrib === "delete-model") {
+            return deleteModel(obj);
         }
-        else if (isClickContained("a[rel=\"delete-make\"]", target)) {
-            return deleteMake(chooseTarget(target));
+        else if (attrib === "delete-make") {
+            return deleteMake(obj);
         }
-        else if (isClickContained("a[rel=\"delete-color\"]", target)) {
-            return deleteColor(chooseTarget(target));
+        else if (attrib === "delete-color") {
+            return deleteColor(obj);
         }
 
         return true;
@@ -65,18 +66,6 @@ $(document).ready(function () {
 });
 
 // Shared functions
-function isClickContained(element, clicked) {
-    if ($(clicked).parent().is(element) || $(clicked).is(element))
-        return true;
-    else
-        return false;
-}
-function chooseTarget(element) {
-    if ($(element).is("a"))
-        return $(element);
-    else
-        return $(element).parent();
-}
 function showResponse(element, message) {
     $(element).hide();
     $(element).html(message);
