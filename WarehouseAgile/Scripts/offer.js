@@ -81,17 +81,25 @@ function showSection(section) {
 
 // Models functions
 function addModelSuccess() {
-    $.ajax({
-        url: "/Offer/GetModels",
-        data: {
-            "make": $("#model-make-id").val()
-        },
-        dataType: "html",
-        success: function (data) {
-            $("#models-select").html(data);
-            saveModelSuccess();
-        }
-    });
+    var makeid = $("#models-make-select").val();
+    if (makeid != 0) {
+        $.ajax({
+            url: "/Offer/GetModels",
+            data: {
+                "make": makeid
+            },
+            dataType: "html",
+            success: function (data) {
+                $("#models-select").html(data);
+                saveModelSuccess();
+            }
+        });
+    }
+    else
+        saveModelSuccess();
+}
+function addModelError() {
+    showResponse("#savemodel-rsp", "<div class=\"error\">Wystąpił błąd</div>");
 }
 function saveModelSuccess() {
     showResponse("#savemodel-rsp", "<div class=\"success\">Dane zostały zapisane</div>");

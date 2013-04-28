@@ -158,6 +158,37 @@ namespace WarehouseAgile.Controllers
         }
 
         //
+        // POST: /Offer/AddModel
+
+        [HttpPost]
+        public ActionResult AddModel()
+        {
+            if (Request.Form["dummyModel.Name"].Length > 0)
+            {
+                using (AppDBEntities context = new AppDBEntities())
+                {
+                    string model = Request.Form["dummyModel.Name"];
+                    int idMake = int.Parse(Request.Form["make"]);
+
+                    if ((from m in context.Models where (m.Name == model && m.Id_make == idMake)  select m).Any())
+                        throw new ApplicationException("Model already exists");
+                    else
+                    {
+                        float price;
+
+                        if (!float.TryParse(Request.Form["dummyModel.Price"], out price))
+                            price = 0f;
+
+                        context.Models.Add(new Model() { Id_make = idMake, Name = model, Price = price });
+                        context.SaveChanges();
+                    }
+                }
+            }
+
+            return Content("OK");
+        }
+
+        //
         // POST: /Offer/AddModelEquipment
 
         [HttpPost]

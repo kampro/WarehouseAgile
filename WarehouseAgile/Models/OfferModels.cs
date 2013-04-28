@@ -13,7 +13,7 @@ namespace WarehouseAgile.Models
     public class OfferModel
     {
         public Make dummyMake;
-        public Model dumyModel;
+        public Model dummyModel;
         public Equipment dummyEquipment;
         public Color dummyColor;
     }

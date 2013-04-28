@@ -32,6 +32,33 @@
 
     <div id="model-details"></div>
 
+    <h3>Dodawanie modelu</h3>
+
+    @using (Ajax.BeginForm("AddModel", "", new AjaxOptions() { OnSuccess = "addModelSuccess", OnFailure = "addModelError", LoadingElementId = "loading", HttpMethod = "POST" }, new { id = "models-add-form" }))
+    {
+        Html.ValidationSummary(true);
+        <div class="row">
+            <div class="column-a">Marka:</div>
+            <div class="column-b">
+                <select name="make" id="models-add-make-select">
+                    @Html.Partial("_MakesSelect")
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column-a">Nazwa:</div>
+            <div class="column-b">@Html.TextBoxFor(m => m.dummyModel.Name) @Html.ValidationMessageFor(m => m.dummyModel.Name, "pole nie może być puste")</div>
+        </div>
+        <div class="row">
+            <div class="column-a">Cena:</div>
+            <div class="column-b">@Html.TextBoxFor(m => m.dummyModel.Price) zł @Html.ValidationMessageFor(m => m.dummyModel.Price, "pole musi być liczbą nieujemną")</div>
+        </div>
+        <div class="row">
+            <div class="column-a">&nbsp;</div>
+            <div class="column-b"><input type="submit" value="Dodaj" /></div>
+        </div>
+    }
+
     <div id="loading"><img src="@Url.Content("~/Content/images/loader.gif")" alt="" /> Pobieranie danych...</div>
 </div>
  

@@ -152,7 +152,7 @@ div#loading, div#loading2, div#loading3, div#loading4 {
     #model-details .group {
         overflow: hidden;
         margin: 0px;
-        padding: 0px 0px 0px 10px;
+        padding: 0px 0px 0px 16px;
     }
 
     /*#model-details */.row {

@@ -88,30 +88,33 @@ namespace WarehouseAgile.Controllers
 
         public ActionResult GetSellerDetails()
         {
-            Guid guid = new Guid(Request.QueryString["seller"]);
-
-            using (AppDBEntities context = new AppDBEntities())
+            if (Request.QueryString["seller"] != "0")
             {
-                Seller seller = (from s in context.Sellers
-                                 where s.Id_user == guid
-                                 select s).FirstOrDefault();
+                Guid guid = new Guid(Request.QueryString["seller"]);
 
-                SellerModel model = new SellerModel();
-                model.UserId = (Guid)seller.Id_user;
-                model.Name = seller.Name;
-                model.Surname = seller.Surname;
-
-                using (MembershipDBEntities context2 = new MembershipDBEntities())
+                using (AppDBEntities context = new AppDBEntities())
                 {
-                    var user = (from s in context2.aspnet_Users
-                                where s.UserId == guid
-                                select s).FirstOrDefault();
+                    Seller seller = (from s in context.Sellers
+                                     where s.Id_user == guid
+                                     select s).FirstOrDefault();
 
-                    model.Username = user.UserName;
+                    SellerModel model = new SellerModel();
+                    model.UserId = (Guid)seller.Id_user;
+                    model.Name = seller.Name;
+                    model.Surname = seller.Surname;
+
+                    using (MembershipDBEntities context2 = new MembershipDBEntities())
+                    {
+                        var user = (from s in context2.aspnet_Users
+                                    where s.UserId == guid
+                                    select s).FirstOrDefault();
+
+                        model.Username = user.UserName;
+                    }
+
+                    if (seller != null)
+                        return PartialView("_SellerDetails", model);
                 }
-
-                if (seller != null)
-                    return PartialView("_SellerDetails", model);
             }
 
             return Content("<h3>Edycja</h3><div class=\"row-clean\">Brak rekordu o wskazanym identyfikatorze</div>");
