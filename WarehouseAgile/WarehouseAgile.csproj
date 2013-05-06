@@ -216,6 +216,8 @@
     <Content Include="App_Data\MembershipDB_log.ldf">
       <DependentUpon>MembershipDB.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\under_construction.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

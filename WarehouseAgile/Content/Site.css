@@ -114,6 +114,7 @@ div.menu {
         }
 
 div.body {
+    overflow: hidden;
     margin: 20px;
 }
 
@@ -209,4 +210,8 @@ div#loading, div#loading2, div#loading3, div#loading4 {
 #header {
     background-color: #232323;
     color: white;
+}
+
+div.split {
+    height: 50px;
 }

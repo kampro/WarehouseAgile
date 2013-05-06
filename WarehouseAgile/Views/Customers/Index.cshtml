@@ -13,29 +13,33 @@
 {
     if (Model.Customers != null)
     {
-        <table>
-            <tr id="header">
-                <td>Opcje</td>
-                <td>Id</td>
-                <td>Imie</td>
-                <td>Nazwisko</td>
-                <td>Adres</td>
-                <td>Miasto</td>
-            </tr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Imie</td>
+                    <td>Nazwisko</td>
+                    <td>Adres</td>
+                    <td>Miasto</td>
+                    <td>Opcje</td>
+                </tr>
+            </thead>
+        <tbody>
         @foreach(var m in Model.Customers)
         {
              <tr>
-                <td>@Html.ActionLink("Usuń", "Delete", new { id = m.Id } ) |
-                    @Html.ActionLink("Edytuj", "Edit", new { id = m.Id } ) |
-                    @Html.ActionLink("Szczegóły", "Details", new { id = m.Id } )
-                </td>
                 <td>@m.Id</td>
                 <td>@m.Name</td>
                 <td>@m.Surname</td>
                 <td>@m.Address</td>
                 <td>@m.City</td>
+                <td>@Html.ActionLink("Usuń", "Delete", new { id = m.Id } ) |
+                    @Html.ActionLink("Edytuj", "Edit", new { id = m.Id } ) |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = m.Id } )
+                </td>
              </tr>           
         }
+        </tbody>
         </table>
     }
     else
