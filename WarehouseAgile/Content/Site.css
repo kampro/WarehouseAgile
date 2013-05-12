@@ -4,46 +4,46 @@
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
-
     margin: 0px;
 }
 
 header,
 footer,
 nav,
-section {
+section
+{
     display: block;
 }
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
 
-fieldset 
+fieldset
 {
-    border:1px solid #ddd;
-    padding:0 1.4em 1.4em 1.4em;
-    margin:0 0 1.5em 0;
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
 }
 
-legend 
+legend
 {
-    font-size:1.2em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
-textarea 
+textarea
 {
     min-height: 75px;
 }
 
-.editor-label 
+.editor-label
 {
     margin: 1em 0 0 0;
 }
 
-.editor-field 
+.editor-field
 {
-    margin:0.5em 0 0 0;
+    margin: 0.5em 0 0 0;
 }
 
 
@@ -79,46 +79,56 @@ textarea
 
 /* Styles for layout
 -----------------------------------------------------------*/
-div.menu {
+div.menu
+{
     margin: 0px;
     padding: 0px;
     overflow: hidden;
     background: #efeff2;
 }
 
-    div.menu ul {
+    div.menu ul
+    {
         overflow: hidden;
         padding: 0px;
         margin: 0px;
         list-style: none;
     }
 
-        div.menu ul li {
+        div.menu ul li
+        {
             padding: 0px;
             margin: 0px;
             float: left;
         }
 
-        div.menu ul a {
+        div.menu ul a
+        {
             padding: 8px;
             margin: 0px;
             float: left;
             text-decoration: none;
             color: #232323;
         }
-        div.menu ul a:link, div.menu ul a:visited {
-            background: #efeff2;
-        }
-        div.menu ul a:hover, div.menu ul a:active {
-            background: #fefefe;
-        }
 
-div.body {
+            div.menu ul a:link, div.menu ul a:visited
+            {
+                background: #efeff2;
+            }
+
+            div.menu ul a:hover, div.menu ul a:active
+            {
+                background: #fefefe;
+            }
+
+div.body
+{
     overflow: hidden;
     margin: 20px;
 }
 
-div.success {
+div.success
+{
     background: #00b400;
     border: none;
     padding: 6px;
@@ -126,7 +136,8 @@ div.success {
     margin: 6px 2px;
 }
 
-div.error {
+div.error
+{
     background: #b40000;
     border: none;
     padding: 6px;
@@ -136,82 +147,135 @@ div.error {
 
 /* Styles for Offer
 -----------------------------------------------------------*/
-div.row-clean {
+div.row-clean
+{
     overflow: hidden;
     clear: both;
 }
 
-div#loading, div#loading2, div#loading3, div#loading4 {
+div#loading, div#loading2, div#loading3, div#loading4
+{
     display: none;
     margin: 6px 2px 6px 2px;
 }
 
-#model-details {
+#model-details
+{
     overflow: hidden;
 }
 
-    #model-details .group {
+    #model-details .group
+    {
         overflow: hidden;
         margin: 0px;
         padding: 0px 0px 0px 16px;
     }
 
-    /*#model-details */.row {
-        overflow: hidden;
-        width: 410px;
-        background: #efeff2;
-        padding: 4px;
-    }
-    /*#model-details */.row:hover {
+/*#model-details */ .row
+{
+    overflow: hidden;
+    width: 410px;
+    background: #efeff2;
+    padding: 4px;
+}
+    /*#model-details */ .row:hover
+    {
         background: #fefefe;
     }
 
-        /*#model-details */.row .column-a {
-            overflow: hidden;
-            margin: 0px;
-            float: left;
-            width: 100px;
+    /*#model-details */ .row .column-a
+    {
+        overflow: hidden;
+        margin: 0px;
+        float: left;
+        width: 100px;
+    }
+
+    /*#model-details */ .row .column-b
+    {
+        overflow: hidden;
+        margin: 0px;
+        float: left;
+        width: 180px;
+    }
+
+        /*#model-details */ .row .column-b input
+        {
+            width: 140px;
         }
 
-        /*#model-details */.row .column-b {
-            overflow: hidden;
-            margin: 0px;
-            float: left;
-            width: 180px;
-        }
-        
-            /*#model-details */.row .column-b input {
-                width: 140px;
-            }
-
-            .row .column-b select {
-                width: 140px;
-            }
-
-            .row .column-b input[type="submit"] {
-                width: 60px;
-            }
-
-        /*#model-details */.row .column-c {
-            overflow: hidden;
-            margin: 0px;
-            float: left;
-            width: 100px;
-            text-align: right;
+        .row .column-b select
+        {
+            width: 140px;
         }
 
-.icon-anchor {
+        .row .column-b input[type="submit"]
+        {
+            width: 60px;
+        }
+
+    /*#model-details */ .row .column-c
+    {
+        overflow: hidden;
+        margin: 0px;
+        float: left;
+        width: 100px;
+        text-align: right;
+    }
+
+.icon-anchor
+{
     float: left;
     padding: 4px;
 }
 
 /* Styles for Customers
 -----------------------------------------------------------*/
-#header {
+#header
+{
     background-color: #232323;
     color: white;
 }
 
-div.split {
+div.split
+{
     height: 50px;
+}
+
+/* Styles for Orders
+-----------------------------------------------------------*/
+div.orders
+{
+    padding-bottom: 20px;
+}
+
+.orders div
+{
+    padding: 5px;
+}
+
+    .orders div.display-label,
+    .orders .editor-label,
+    .orders-create > .priceLabel
+    {
+        float: left;
+        margin-right: 15px;
+    }
+
+        .orders div.display-label > label,
+        .orders .editor-label > label,
+        .orders-create .editor-label > label
+        {
+            margin-bottom: 0px;
+            font-weight: bolder;
+        }
+
+div.editor-field.priceField
+{
+    margin-top: 1em;
+}
+
+#SaveButton
+{
+    margin-top: 15px;
 }

@@ -2,6 +2,7 @@
     $("#MakesSelection").change(LoadModels);
     $("#ModelsSelection").change(LoadEquipments);
     $("#ModelsSelection, #EquipmentsSelection").change(LoadPrice);
+    $("#EquipmentsSelection").change(Validate);
 });
 
 function LoadModels() {
@@ -13,6 +14,7 @@ function LoadModels() {
         },
         success: function (result) {
             $("#ModelsSelection").html(result);
+            LoadEquipments();
         }
     });
 
@@ -34,6 +36,7 @@ function LoadEquipments() {
                 });
             }
             $("#EquipmentsSelection").html(equipments);
+            Validate();
         }
     });
 }
@@ -54,4 +57,11 @@ function CountPrice(modelId, equipmentPriceId, selector) {
             $(selector).text(result + " zł");
         }
     });
+}
+
+function Validate() {
+    if ($("#EquipmentsSelection").val() > 0)
+        $("#SaveButton").attr("disabled", null);
+    else
+        $("#SaveButton").attr("disabled", "disabled");
 }

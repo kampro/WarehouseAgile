@@ -6,7 +6,7 @@
 @using (Html.BeginForm("SaveNewOrder", "Orders", FormMethod.Post))
 {
     @Html.ValidationSummary(false)
-    <fieldset>
+    <fieldset class="orders-create">
         <legend>Zamówienie</legend>
 
         <div class="editor-label">
@@ -50,13 +50,15 @@
             @Html.DropDownList("customerId", OrdersController.GetCustomers())
         </div>
 
-        <div class="editor-label">
+        <div class="editor-label priceLabel">
             @Html.Label("Cena")
+        </div>
+        <div class="editor-field priceField">
             <span id="OrderPriceField">0 zł</span>
         </div>
 
         <p>
-            <input type="submit" value="Zapisz" />
+            <input type="submit" value="Zapisz" disabled="disabled" id="SaveButton" />
         </p>
     </fieldset>
 }

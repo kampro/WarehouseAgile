@@ -1,18 +1,18 @@
 ﻿@model WarehouseAgile.Models.OrderModel
-
 <h2>Szczegóły zamówienia</h2>
 
 @if (Model != null)
 {
     @Html.Partial("_ReadOnlyDetails");
     
-    <div class="display-label">
-        @Html.LabelFor(model => model.Status)
+    <div class="orders">
+        <div class="display-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Status)
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Status)
-    </div>
-    
     <p>
         @Html.ActionLink("Edycja", "Edit", new { Id = Model.Id })
     </p>

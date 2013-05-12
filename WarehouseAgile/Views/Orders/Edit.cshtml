@@ -7,21 +7,22 @@
 {
     using (Html.BeginForm("SaveStatus", "Orders", FormMethod.Post))
     {
-        @Html.Partial("_ReadOnlyDetails")
+    @Html.Partial("_ReadOnlyDetails")
         
-        @Html.EditorFor(model => model.Id, string.Empty, "orderId")
+    @Html.EditorFor(model => model.Id, string.Empty, "orderId")
     
+    <div class="orders">
         <div class="editor-label">
             @Html.LabelFor(model => model.Status)
         </div>
-        
+
         <div class="editor-field">
             @Html.DropDownList("statusId", OrdersController.GetStatuses())
         </div>
-
-        <p>
-            <input type="submit" value="Zapisz" />
-        </p>
+    </div>
+    <p>
+        <input type="submit" value="Zapisz" />
+    </p>
     }
 }
 else
