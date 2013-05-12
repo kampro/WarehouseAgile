@@ -7,6 +7,7 @@ using WarehouseAgile.Models;
 
 namespace WarehouseAgile.Controllers
 {
+    [Authorize(Roles = "Boss")]
     public class OfferController : Controller
     {
         //

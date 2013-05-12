@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace WarehouseAgile.Controllers
 {
+    [Authorize(Roles = "Boss")]
     public class StatsController : Controller
     {
         //
