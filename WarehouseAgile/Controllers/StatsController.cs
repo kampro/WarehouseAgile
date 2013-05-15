@@ -16,6 +16,5 @@ namespace WarehouseAgile.Controllers
         {
             return View();
         }
-
     }
 }

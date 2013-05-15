@@ -218,6 +218,7 @@
     </Content>
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\images\bg.png" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\under_construction.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -328,6 +329,9 @@
       <LastGenOutput>MembershipModel.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\g.bar-min.js" />
+    <Content Include="Scripts\g.pie-min.js" />
+    <Content Include="Scripts\g.raphael-min.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -339,6 +343,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\offer.js" />
     <Content Include="Scripts\Order.js" />
+    <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\sellers.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
