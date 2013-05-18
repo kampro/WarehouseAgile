@@ -1,19 +1,22 @@
 ﻿@using WarehouseAgile
 <h1>Statystyki</h1>
 
+@{Html.RenderPartial("_SideMenu");}
+
 @* Documentation for charts library - http://g.raphaeljs.com/ *@
 
-@{
-    using(AppDBEntities context = new AppDBEntities())
-    {
-        float count = context.Orders.Count();
-        var temp = context.Orders.AsEnumerable();
-        float women = (float)Math.Round(temp.Where(x => x.Customer.Name.ToLower()[x.Customer.Name.Length - 1] == 'a').Count() / count * 100f, 2);
-        float men = 100f - women;
+<div>
+    @{
+        using (AppDBEntities context = new AppDBEntities())
+        {
+            float count = context.Orders.Count();
+            var temp = context.Orders.AsEnumerable();
+            float women = (float)Math.Round(temp.Where(x => x.Customer.Name.ToLower()[x.Customer.Name.Length - 1] == 'a').Count() / count * 100f, 2);
+            float men = 100f - women;
         
         <script type="text/javascript">
             var r = Raphael(20, 30, 800, 600);
-            var pie = r.piechart(320, 240, 150, [@women , @men], { legend: ["%%.%% Kobiety", "%%.%% Mężczyźni"], legendpos: "east" });
+            var pie = r.piechart(320, 240, 150, [@women, @men], { legend: ["%%.%% Kobiety", "%%.%% Mężczyźni"], legendpos: "east" });
 
             pie.hover(function () {
                 this.sector.stop();
@@ -33,6 +36,7 @@
                 }
             });
         </script>
+        }
     }
-}
+</div>
 

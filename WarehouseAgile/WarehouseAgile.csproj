@@ -394,6 +394,7 @@
     <Content Include="Views\Sellers\_BranchesSelect.cshtml" />
     <Content Include="Views\Sellers\_RolesSelect.cshtml" />
     <Content Include="Views\Sellers\_SellerDetails.cshtml" />
+    <Content Include="Views\Stats\_SideMenu.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

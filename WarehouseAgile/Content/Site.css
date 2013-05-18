@@ -279,3 +279,17 @@ div.editor-field.priceField
 {
     margin-top: 15px;
 }
+
+/* Styles for Statistics
+-----------------------------------------------------------*/
+
+div.well
+{
+    width: 20%;
+    float: left;
+}
+
+svg
+{
+    position: relative !important;
+}
