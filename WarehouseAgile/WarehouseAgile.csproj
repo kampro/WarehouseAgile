@@ -345,6 +345,7 @@
     <Content Include="Scripts\Order.js" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\sellers.js" />
+    <Content Include="Scripts\statistics.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -395,6 +396,9 @@
     <Content Include="Views\Sellers\_RolesSelect.cshtml" />
     <Content Include="Views\Sellers\_SellerDetails.cshtml" />
     <Content Include="Views\Stats\_SideMenu.cshtml" />
+    <Content Include="Views\Stats\Cities.cshtml" />
+    <Content Include="Views\Stats\Colors.cshtml" />
+    <Content Include="Views\Stats\Makes.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

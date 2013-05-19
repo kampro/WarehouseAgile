@@ -32,8 +32,6 @@ namespace WarehouseAgile.Controllers
         {
             using (AppDBEntities db = new AppDBEntities())
             {
-                newCustomer.City = "kozia wólka";
-
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
             }

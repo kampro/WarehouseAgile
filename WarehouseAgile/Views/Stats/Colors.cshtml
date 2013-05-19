@@ -1,0 +1,29 @@
+﻿@using WarehouseAgile
+@using System.Web.Script.Serialization
+<h1>Statystyki</h1>
+
+@{Html.RenderPartial("_SideMenu");}
+
+<div>
+    @{        
+        using (AppDBEntities context = new AppDBEntities())
+        {
+            var serializer = new JavaScriptSerializer();
+            float count = context.Orders.Count();
+            var grouped = context.Orders
+                .Select(order => new { id = order.Id, color = order.Color.Name })
+                .GroupBy(order => order.color);
+
+            var values = serializer.Serialize(grouped.Select(group => Math.Round((double)group.Count() / count * 100f, 2)));            
+            var labels = serializer.Serialize(grouped.Select(group => group.FirstOrDefault().color));
+            
+        <script type="text/javascript">
+            $(function () {
+                DrawChart($.parseJSON('@values'), $.parseJSON('@Html.Raw(labels)'));
+            });
+        </script>
+        }
+    }
+</div>
+
+<script src="@Url.Content("~/Scripts/statistics.js")" type="text/javascript"></script>

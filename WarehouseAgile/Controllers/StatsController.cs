@@ -9,12 +9,28 @@ namespace WarehouseAgile.Controllers
     [Authorize(Roles = "Boss")]
     public class StatsController : Controller
     {
-        //
-        // GET: /Stats/
+        #region Actions
 
         public ActionResult Index()
         {
             return View();
         }
+
+        public ActionResult Cities()
+        {
+            return View();
+        }
+
+        public ActionResult Colors()
+        {
+            return View();
+        }
+
+        public ActionResult Makes()
+        {
+            return View();
+        }
+
+        #endregion
     }
 }
